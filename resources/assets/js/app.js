@@ -16,6 +16,7 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('weight-dashboard-component', require('./components/WeightDashboardComponent.vue'));
 
 const app = new Vue({
     el: '#app'

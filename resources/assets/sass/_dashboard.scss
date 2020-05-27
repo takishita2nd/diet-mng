@@ -1,0 +1,16 @@
+dev.dashboard {
+    display: block;
+    border: solid;
+    dev.chart {
+        display: block;
+    }
+    dev.command {
+        display: block;
+        text-align: right;
+        ul li {
+            display: inline;
+            padding: 3px;
+            margin-right: 10px;
+        }
+    }
+}

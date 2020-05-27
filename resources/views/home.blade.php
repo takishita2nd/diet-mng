@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <weight-dashboard-component></weight-dashboard-component>
                 </div>
             </div>
         </div>
