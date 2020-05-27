@@ -45049,7 +45049,7 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(40)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(56)
 /* template */
 var __vue_template__ = __webpack_require__(55)
 /* template functional */
@@ -45097,28 +45097,92 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "dev",
-    { staticClass: "dashboard" },
-    [
-      _c("dev", { staticClass: "chart" }, [
-        _c("canvas", { attrs: { id: "weight" } })
-      ]),
+  return _c("div", [
+    _c("div", { staticClass: "dashboard" }, [
+      _vm._m(0),
       _vm._v(" "),
-      _c("dev", { staticClass: "command" }, [
+      _c("div", { staticClass: "command" }, [
         _c("ul", [
           _c("li", [
-            _c("a", { attrs: { href: "" } }, [_vm._v("クイック入力")])
+            _c("a", { on: { click: _vm.onClickInput } }, [
+              _vm._v("クイック入力")
+            ])
           ]),
           _vm._v(" "),
-          _c("li", [_c("a", { attrs: { href: "" } }, [_vm._v("詳細")])])
+          _vm._m(1)
         ])
       ])
-    ],
-    1
-  )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showDialogContent,
+            expression: "showDialogContent"
+          }
+        ],
+        attrs: { id: "overlay" }
+      },
+      [
+        _c("div", { attrs: { id: "content" } }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("p", { attrs: { id: "command" } }, [
+            _c("button", { on: { click: _vm.closeModal } }, [_vm._v("入力")]),
+            _vm._v(" "),
+            _c("button", { on: { click: _vm.closeModal } }, [_vm._v("閉じる")])
+          ])
+        ])
+      ]
+    )
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "chart" }, [
+      _c("canvas", { attrs: { id: "weight" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [_c("a", { attrs: { href: "" } }, [_vm._v("詳細")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("table", { staticClass: "edit" }, [
+      _c("tbody", [
+        _c("tr", [
+          _c("td", [_vm._v("体重")]),
+          _vm._v(" "),
+          _c("td", [_c("input", { attrs: { type: "number" } })])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", [_vm._v("体脂肪")]),
+          _vm._v(" "),
+          _c("td", [_c("input", { attrs: { type: "number" } })])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", [_vm._v("BMI")]),
+          _vm._v(" "),
+          _c("td", [_c("input", { attrs: { type: "number" } })])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -45127,6 +45191,71 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-8935e7d0", module.exports)
   }
 }
+
+/***/ }),
+/* 56 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            showDialogContent: false
+        };
+    },
+
+    created: function created() {},
+    methods: {
+        onClickInput: function onClickInput() {
+            this.showDialogContent = true;
+        },
+        closeModal: function closeModal() {
+            this.showDialogContent = false;
+        }
+    }
+});
 
 /***/ })
 /******/ ]);

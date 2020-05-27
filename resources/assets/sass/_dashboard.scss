@@ -1,16 +1,56 @@
-dev.dashboard {
+div.dashboard {
     display: block;
     border: solid;
-    dev.chart {
+    div.chart {
         display: block;
     }
-    dev.command {
+    div.command {
         display: block;
         text-align: right;
         ul li {
             display: inline;
             padding: 3px;
             margin-right: 10px;
+        }
+    }
+}
+#overlay {
+    z-index: 1;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    #content {
+        z-index: 2;
+        width: 30%;
+        padding: 1em;
+        background: #fff;
+        table.edit {
+            width: 100%;
+            tbody tr {
+                th {
+                    width: 50%;
+                }
+                td {
+                    width: 50%;
+                }
+            }
+        }
+    }
+    p#command {
+        text-align: center;
+        margin-top: 11px;
+        button {
+            margin-left: 20px;
+            margin-right: 20px;
         }
     }
 }
