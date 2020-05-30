@@ -25,13 +25,13 @@ class CreateWeightManagement extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
         });
 
-        Schema::create('users_weight_managements', function (Blueprint $table) {
-            $table->integer('users_id')
-                  ->foreign('users_id')
+        Schema::create('user_weight_management', function (Blueprint $table) {
+            $table->integer('user_id')
+                  ->foreign('user_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade');
-            $table->integer('weight_managements_id')
-                  ->foreign('weight_managements_id')
+            $table->integer('weight_management_id')
+                  ->foreign('weight_management_id')
                   ->references('id')->on('weight_managements')
                   ->onDelete('cascade');
             $table->engine = 'InnoDB';
@@ -47,6 +47,7 @@ class CreateWeightManagement extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('user_weight_management');
+        Schema::dropIfExists('weight_managements');
     }
 }

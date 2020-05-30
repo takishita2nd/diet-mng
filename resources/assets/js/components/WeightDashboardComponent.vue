@@ -11,30 +11,7 @@
                 </ul>
             </div>
         </div>
-        <div id="overlay" v-show="showDialogContent">
-            <div id="content">
-                <table class="edit">
-                    <tbody>
-                        <tr>
-                            <td>体重</td>
-                            <td><input type="number" /></td>
-                        </tr>
-                        <tr>
-                            <td>体脂肪</td>
-                            <td><input type="number" /></td>
-                        </tr>
-                        <tr>
-                            <td>BMI</td>
-                            <td><input type="number" /></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p id="command">
-                    <button @click="closeModal">入力</button>
-                    <button @click="closeModal">閉じる</button>
-                </p>
-            </div>
-        </div>
+        <weight-input-dialog-component :show="showDialogContent"></weight-input-dialog-component>
     </div>
 </template>
 
@@ -52,9 +29,6 @@ export default {
         onClickInput: function() {
             this.showDialogContent = true;
         },
-        closeModal: function() {
-            this.showDialogContent = false;
-        }
     }
 }
 </script>
