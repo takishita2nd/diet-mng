@@ -7,7 +7,7 @@
             <div class="command">
                 <ul>
                     <li><a @click="onClickInput">クイック入力</a></li>
-                    <li><a href="">詳細</a></li>
+                    <li><a href="/weight">詳細</a></li>
                 </ul>
             </div>
         </div>
@@ -23,7 +23,6 @@ export default {
         };
     },
     created: function() {
-
     },
     methods: {
         onClickInput: function() {

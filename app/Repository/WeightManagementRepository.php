@@ -27,6 +27,11 @@ class WeightManagementRepository
         $this->attachToUser($model, $user);
     }
 
+    public function list($user)
+    {
+        return $user->WeightManagements()->get();
+    }
+
     public function attachToUser($model, $user)
     {
         $model->users()->attach($user);

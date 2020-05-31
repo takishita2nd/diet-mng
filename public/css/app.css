@@ -8401,3 +8401,66 @@ div.dashboard div.command ul li {
   margin-right: 20px;
 }
 
+table.weightlist {
+  width: 100%;
+}
+
+table.weightlist tbody tr th {
+  border: solid;
+  border-width: thin;
+}
+
+table.weightlist tbody tr .date {
+  width: 20%;
+}
+
+table.weightlist tbody tr .weight {
+  width: 20%;
+}
+
+table.weightlist tbody tr .fat_rate {
+  width: 20%;
+}
+
+table.weightlist tbody tr .bmi {
+  width: 20%;
+}
+
+table.weightlist tbody tr .edit {
+  width: 10%;
+}
+
+table.weightlist tbody tr .delete {
+  width: 10%;
+}
+
+table.weightlist tbody tr td {
+  border: solid;
+  border-width: thin;
+  text-align: right;
+}
+
+table.weightlist tbody tr .date {
+  width: 20%;
+}
+
+table.weightlist tbody tr .weight {
+  width: 20%;
+}
+
+table.weightlist tbody tr .fat_rate {
+  width: 20%;
+}
+
+table.weightlist tbody tr .bmi {
+  width: 20%;
+}
+
+table.weightlist tbody tr .edit {
+  width: 10%;
+}
+
+table.weightlist tbody tr .delete {
+  width: 10%;
+}
+

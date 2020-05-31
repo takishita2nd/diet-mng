@@ -15,6 +15,9 @@ class ApiController extends Controller
         $this->weightManagement = new WeightManagementRepository();
     }
 
+    /**
+     * データを１件登録する
+     */
     public function add(Request $request)
     {
         $param = $this->weightManagement->getParam();
@@ -26,5 +29,13 @@ class ApiController extends Controller
         ], Auth::user());
         
         return response()->json();
+    }
+
+    /**
+     * データを取得する
+     */
+    public function list(Request $request)
+    {
+        return response()->json(['dataLists' => $this->weightManagement->list(Auth::user())]);
     }
 }

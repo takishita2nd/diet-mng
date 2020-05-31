@@ -1,0 +1,50 @@
+table.weightlist {
+    width: 100%;
+    tbody tr {
+        th {
+            border: solid;
+            border-width: thin;
+        }
+        .date {
+            width: 20%;
+        }
+        .weight {
+            width: 20%;
+        }
+        .fat_rate {
+            width: 20%;
+        }
+        .bmi {
+            width: 20%;
+        }
+        .edit {
+            width: 10%;
+        }
+        .delete {
+            width: 10%;
+        }
+        td {
+            border: solid;
+            border-width: thin;
+            text-align: right;
+        }
+        .date {
+            width: 20%;
+        }
+        .weight {
+            width: 20%;
+        }
+        .fat_rate {
+            width: 20%;
+        }
+        .bmi {
+            width: 20%;
+        }
+        .edit {
+            width: 10%;
+        }
+        .delete {
+            width: 10%;
+        }
+    }
+}

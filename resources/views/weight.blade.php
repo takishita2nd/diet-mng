@@ -14,6 +14,7 @@
                         </div>
                     @endif
                 </div>
+                <weight-list-component></weight-list-component>
             </div>
         </div>
     </div>

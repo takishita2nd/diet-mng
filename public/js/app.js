@@ -1099,6 +1099,7 @@ window.Vue = __webpack_require__(36);
 Vue.component('example-component', __webpack_require__(40));
 Vue.component('weight-dashboard-component', __webpack_require__(43));
 Vue.component('weight-input-dialog-component', __webpack_require__(46));
+Vue.component('weight-list-component', __webpack_require__(60));
 
 var app = new Vue({
   el: '#app'
@@ -45160,7 +45161,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", [_c("a", { attrs: { href: "" } }, [_vm._v("詳細")])])
+    return _c("li", [_c("a", { attrs: { href: "/weight" } }, [_vm._v("詳細")])])
   }
 ]
 render._withStripped = true
@@ -45451,6 +45452,202 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(61)
+/* template */
+var __vue_template__ = __webpack_require__(62)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/WeightListComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-331b6580", Component.options)
+  } else {
+    hotAPI.reload("data-v-331b6580", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            datalists: []
+        };
+    },
+
+    created: function created() {
+        var self = this;
+        axios.post('api/weight/list').then(function (response) {
+            response.data.dataLists.forEach(function (element) {
+                self.datalists.push({
+                    date: element.datetime,
+                    weight: element.weight,
+                    fat_rate: element.fat_rate,
+                    bmi: element.bmi
+                });
+            });
+        }).catch(function (error) {});
+    }
+});
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("table", { staticClass: "weightlist" }, [
+      _c(
+        "tbody",
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._l(_vm.datalists, function(data) {
+            return _c("tr", [
+              _c("td", { staticClass: "date" }, [_vm._v(_vm._s(data.date))]),
+              _vm._v(" "),
+              _c("td", { staticClass: "weight" }, [
+                _vm._v(_vm._s(data.weight))
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "fat_rate" }, [
+                _vm._v(_vm._s(data.fat_rate))
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "bmi" }, [_vm._v(_vm._s(data.bmi))]),
+              _vm._v(" "),
+              _vm._m(1, true),
+              _vm._v(" "),
+              _vm._m(2, true)
+            ])
+          })
+        ],
+        2
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { staticClass: "date" }, [_vm._v("日時")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "weight" }, [_vm._v("体重(kg)")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "fat_rate" }, [_vm._v("体脂肪(%)")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "bmi" }, [_vm._v("BMI")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "edit" }),
+      _vm._v(" "),
+      _c("th", { staticClass: "delele" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "edit" }, [
+      _c("a", { attrs: { href: "" } }, [_vm._v("Edit")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "delele" }, [
+      _c("a", { attrs: { href: "" } }, [_vm._v("Delete")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-331b6580", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
