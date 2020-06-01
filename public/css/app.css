@@ -8464,3 +8464,12 @@ table.weightlist tbody tr .delete {
   width: 10%;
 }
 
+p#inputbutton {
+  text-align: right;
+  margin-right: 10px;
+}
+
+p#navi {
+  margin-left: 10px;
+}
+

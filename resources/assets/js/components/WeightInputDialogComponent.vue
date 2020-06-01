@@ -55,6 +55,7 @@ export default {
             axios.post('api/weight/add', this.param).then(function(response){
                 self.clear();
                 self.closeModal();
+                self.$emit('update');
             }).catch(function(error){
                 self.error_flg = true;
                 self.errors = error.response.data.errors;
