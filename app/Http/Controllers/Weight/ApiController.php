@@ -32,6 +32,21 @@ class ApiController extends Controller
     }
 
     /**
+     * データを１件更新する
+     */
+    public function edit(Request $request)
+    {
+        $param = $this->weightManagement->getParam();
+        $this->weightManagement->edit( $request->contents["id"], 
+            $request->contents["weight"],
+            $request->contents["fat_rate"],
+            $request->contents["bmi"]
+        );
+        
+        return response()->json();
+    }
+
+    /**
      * データを取得する
      */
     public function list(Request $request)

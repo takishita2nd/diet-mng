@@ -1099,6 +1099,7 @@ window.Vue = __webpack_require__(36);
 Vue.component('example-component', __webpack_require__(40));
 Vue.component('weight-dashboard-component', __webpack_require__(43));
 Vue.component('weight-input-dialog-component', __webpack_require__(46));
+Vue.component('weight-edit-dialog-component', __webpack_require__(63));
 Vue.component('weight-list-component', __webpack_require__(49));
 
 var app = new Vue({
@@ -45290,7 +45291,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         closeModal: function closeModal() {
-            this.$parent.showDialogContent = false;
+            this.$parent.showInputDialogContent = false;
         },
         clear: function clear() {
             this.contents.weight = "";
@@ -45535,11 +45536,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            showDialogContent: false,
+            showInputDialogContent: false,
+            showEditDialogContent: false,
             datalists: []
         };
     },
@@ -45549,7 +45552,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         onClickInput: function onClickInput() {
-            this.showDialogContent = true;
+            this.showInputDialogContent = true;
+        },
+        onClickEdit: function onClickEdit(id) {
+            var editData = {};
+            this.datalists.forEach(function (element) {
+                if (element.id == id) {
+                    editData.id = id;
+                    editData.weight = element.weight;
+                    editData.fat_rate = element.fat_rate;
+                    editData.bmi = element.bmi;
+                    return true;
+                }
+            });
+            this.$refs.editDialog.dataSet(editData);
+            this.showEditDialogContent = true;
         },
         invokeUpdateList: function invokeUpdateList() {
             this.updateList();
@@ -45560,6 +45577,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('api/weight/list').then(function (response) {
                 response.data.dataLists.forEach(function (element) {
                     self.datalists.push({
+                        id: element.id,
                         date: element.datetime,
                         weight: element.weight,
                         fat_rate: element.fat_rate,
@@ -45609,9 +45627,21 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", { staticClass: "bmi" }, [_vm._v(_vm._s(data.bmi))]),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _c("td", { staticClass: "edit" }, [
+                  _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.onClickEdit(data.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ]),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _vm._m(2, true)
               ])
             })
           ],
@@ -45624,7 +45654,13 @@ var render = function() {
       "div",
       [
         _c("weight-input-dialog-component", {
-          attrs: { show: _vm.showDialogContent },
+          attrs: { show: _vm.showInputDialogContent },
+          on: { update: _vm.invokeUpdateList }
+        }),
+        _vm._v(" "),
+        _c("weight-edit-dialog-component", {
+          ref: "editDialog",
+          attrs: { show: _vm.showEditDialogContent },
           on: { update: _vm.invokeUpdateList }
         })
       ],
@@ -45664,14 +45700,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "edit" }, [
-      _c("a", { attrs: { href: "" } }, [_vm._v("Edit")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("td", { staticClass: "delele" }, [
       _c("a", { attrs: { href: "" } }, [_vm._v("Delete")])
     ])
@@ -45691,6 +45719,295 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(64)
+/* template */
+var __vue_template__ = __webpack_require__(65)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/WeightEditDialogComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2c78c3ec", Component.options)
+  } else {
+    hotAPI.reload("data-v-2c78c3ec", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 64 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['show'],
+    data: function data() {
+        return {
+            errors: [],
+            error_flg: [],
+            param: {},
+            contents: {
+                id: "",
+                weight: "",
+                fat_rate: "",
+                bmi: ""
+            }
+        };
+    },
+
+    created: function created() {},
+    methods: {
+        dataSet: function dataSet(data) {
+            this.contents = data;
+        },
+        clickAdd: function clickAdd() {
+            var self = this;
+            this.param.contents = this.contents;
+            axios.post('api/weight/edit', this.param).then(function (response) {
+                self.clear();
+                self.closeModal();
+                self.$emit('update');
+            }).catch(function (error) {
+                self.error_flg = true;
+                self.errors = error.response.data.errors;
+            });
+        },
+        closeModal: function closeModal() {
+            this.$parent.showEditDialogContent = false;
+        },
+        clear: function clear() {
+            this.contents.weight = "";
+            this.contents.fat_rate = "";
+            this.contents.bmi = "";
+            this.error_flg = false;
+            this.errors = [];
+        }
+    }
+});
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.show,
+            expression: "show"
+          }
+        ],
+        attrs: { id: "overlay" }
+      },
+      [
+        _c("div", { attrs: { id: "content" } }, [
+          _vm.error_flg == true
+            ? _c(
+                "p",
+                { staticClass: "error" },
+                [
+                  _c(
+                    "ui",
+                    _vm._l(_vm.errors, function(error) {
+                      return _c("li", [_vm._v(_vm._s(error))])
+                    }),
+                    0
+                  )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c("table", { staticClass: "edit" }, [
+            _c("tbody", [
+              _c("tr", [
+                _c("td", [_vm._v("体重")]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.contents.weight,
+                        expression: "contents.weight"
+                      }
+                    ],
+                    attrs: { type: "number" },
+                    domProps: { value: _vm.contents.weight },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.contents, "weight", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("体脂肪")]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.contents.fat_rate,
+                        expression: "contents.fat_rate"
+                      }
+                    ],
+                    attrs: { type: "number" },
+                    domProps: { value: _vm.contents.fat_rate },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.contents, "fat_rate", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("BMI")]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.contents.bmi,
+                        expression: "contents.bmi"
+                      }
+                    ],
+                    attrs: { type: "number" },
+                    domProps: { value: _vm.contents.bmi },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.contents, "bmi", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("p", { attrs: { id: "command" } }, [
+            _c("button", { on: { click: _vm.clickAdd } }, [_vm._v("入力")]),
+            _vm._v(" "),
+            _c("button", { on: { click: _vm.closeModal } }, [_vm._v("閉じる")])
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2c78c3ec", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

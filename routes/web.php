@@ -21,4 +21,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/weight', 'Weight\WeightController@index')->name('weight');
 
 Route::post('api/weight/add', 'Weight\ApiController@add');
+Route::post('api/weight/edit', 'Weight\ApiController@edit');
 Route::post('api/weight/list', 'Weight\ApiController@list');

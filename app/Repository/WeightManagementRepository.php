@@ -27,9 +27,23 @@ class WeightManagementRepository
         $this->attachToUser($model, $user);
     }
 
+    public function edit($id, $weight, $fat_rate, $bmi)
+    {
+        $model = $this->getItemById($id);
+        $model->weight = $weight;
+        $model->fat_rate = $fat_rate;
+        $model->bmi = $bmi;
+        $model->save();
+    }
+
     public function list($user)
     {
         return $user->WeightManagements()->get();
+    }
+
+    public function getItemById($id)
+    {
+        return WeightManagement::where(['id' => $id])->first();
     }
 
     public function attachToUser($model, $user)

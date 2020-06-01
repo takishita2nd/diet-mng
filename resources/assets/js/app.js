@@ -18,6 +18,7 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('weight-dashboard-component', require('./components/WeightDashboardComponent.vue'));
 Vue.component('weight-input-dialog-component', require('./components/WeightInputDialogComponent.vue'));
+Vue.component('weight-edit-dialog-component', require('./components/WeightEditDialogComponent.vue'));
 Vue.component('weight-list-component', require('./components/WeightListComponent.vue'));
 
 const app = new Vue({
