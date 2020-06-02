@@ -36,6 +36,13 @@ class WeightManagementRepository
         $model->save();
     }
 
+    public function delete($id, $user)
+    {
+        $model = $this->getItemById($id);
+        $this->detachToUser($model, $user);
+        $model->delete();
+    }
+
     public function list($user)
     {
         return $user->WeightManagements()->get();
@@ -49,6 +56,11 @@ class WeightManagementRepository
     public function attachToUser($model, $user)
     {
         $model->users()->attach($user);
+    }
+
+    public function detachToUser($model, $user)
+    {
+        $model->users()->detach($user);
     }
 
     public function getParam()

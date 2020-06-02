@@ -21,7 +21,7 @@
                         <td class="fat_rate">{{ data.fat_rate}}</td>
                         <td class="bmi">{{ data.bmi}}</td>
                         <td class="edit"><a @click="onClickEdit(data.id)">Edit</a></td>
-                        <td class="delele"><a href="">Delete</a></td>
+                        <td class="delele"><a @click="onClickDelete(data.id)">Delete</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -29,6 +29,7 @@
         <div>
             <weight-input-dialog-component :show="showInputDialogContent" @update="invokeUpdateList"></weight-input-dialog-component>
             <weight-edit-dialog-component ref="editDialog" :show="showEditDialogContent" @update="invokeUpdateList"></weight-edit-dialog-component>
+            <weight-delete-dialog-component ref="deleteDialog" :show="showDeleteDialogContent" @update="invokeUpdateList"></weight-delete-dialog-component>
         </div>
     </div>
 </template>
@@ -39,6 +40,7 @@ export default {
         return {
             showInputDialogContent: false,
             showEditDialogContent: false,
+            showDeleteDialogContent: false,
             datalists: [],
         };
     },
@@ -62,6 +64,21 @@ export default {
             });
             this.$refs.editDialog.dataSet(editData);
             this.showEditDialogContent = true;
+        },
+        onClickDelete: function(id) {
+            var editData = {};
+            this.datalists.forEach(element => {
+                if(element.id == id){
+                    editData.id = id;
+                    editData.date = element.date;
+                    editData.weight = element.weight;
+                    editData.fat_rate = element.fat_rate;
+                    editData.bmi = element.bmi;
+                    return true;
+                }
+            });
+            this.$refs.deleteDialog.dataSet(editData);
+            this.showDeleteDialogContent = true;
         },
         invokeUpdateList: function() {
             this.updateList();

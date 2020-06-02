@@ -47,6 +47,16 @@ class ApiController extends Controller
     }
 
     /**
+     * データを１件削除する
+     */
+    public function delete(Request $request)
+    {
+        $this->weightManagement->delete($request->contents["id"], Auth::user());
+        
+        return response()->json();
+    }
+
+    /**
      * データを取得する
      */
     public function list(Request $request)

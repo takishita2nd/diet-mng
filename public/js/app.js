@@ -377,33 +377,6 @@ module.exports = {
 /* 1 */
 /***/ (function(module, exports) {
 
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
 /* globals __VUE_SSR_CONTEXT__ */
 
 // IMPORTANT: Do NOT use ES2015 features in this file.
@@ -507,6 +480,33 @@ module.exports = function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
@@ -1072,7 +1072,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(52);
+module.exports = __webpack_require__(55);
 
 
 /***/ }),
@@ -1099,8 +1099,9 @@ window.Vue = __webpack_require__(36);
 Vue.component('example-component', __webpack_require__(40));
 Vue.component('weight-dashboard-component', __webpack_require__(43));
 Vue.component('weight-input-dialog-component', __webpack_require__(46));
-Vue.component('weight-edit-dialog-component', __webpack_require__(63));
-Vue.component('weight-list-component', __webpack_require__(49));
+Vue.component('weight-edit-dialog-component', __webpack_require__(49));
+Vue.component('weight-delete-dialog-component', __webpack_require__(66));
+Vue.component('weight-list-component', __webpack_require__(52));
 
 var app = new Vue({
   el: '#app'
@@ -18284,7 +18285,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(14)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(14)(module)))
 
 /***/ }),
 /* 14 */
@@ -44645,7 +44646,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(38).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(38).setImmediate))
 
 /***/ }),
 /* 38 */
@@ -44715,7 +44716,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 39 */
@@ -44908,14 +44909,14 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(5)))
 
 /***/ }),
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(41)
 /* template */
@@ -45034,7 +45035,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(44)
 /* template */
@@ -45179,7 +45180,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(47)
 /* template */
@@ -45454,292 +45455,11 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(50)
 /* template */
 var __vue_template__ = __webpack_require__(51)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/WeightListComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-331b6580", Component.options)
-  } else {
-    hotAPI.reload("data-v-331b6580", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 50 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            showInputDialogContent: false,
-            showEditDialogContent: false,
-            datalists: []
-        };
-    },
-
-    created: function created() {
-        this.updateList();
-    },
-    methods: {
-        onClickInput: function onClickInput() {
-            this.showInputDialogContent = true;
-        },
-        onClickEdit: function onClickEdit(id) {
-            var editData = {};
-            this.datalists.forEach(function (element) {
-                if (element.id == id) {
-                    editData.id = id;
-                    editData.weight = element.weight;
-                    editData.fat_rate = element.fat_rate;
-                    editData.bmi = element.bmi;
-                    return true;
-                }
-            });
-            this.$refs.editDialog.dataSet(editData);
-            this.showEditDialogContent = true;
-        },
-        invokeUpdateList: function invokeUpdateList() {
-            this.updateList();
-        },
-        updateList: function updateList() {
-            this.datalists = [];
-            var self = this;
-            axios.post('api/weight/list').then(function (response) {
-                response.data.dataLists.forEach(function (element) {
-                    self.datalists.push({
-                        id: element.id,
-                        date: element.datetime,
-                        weight: element.weight,
-                        fat_rate: element.fat_rate,
-                        bmi: element.bmi
-                    });
-                });
-            }).catch(function (error) {});
-        }
-    }
-});
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("p", { attrs: { id: "inputbutton" } }, [
-        _c("button", { on: { click: _vm.onClickInput } }, [
-          _vm._v("データ入力")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("table", { staticClass: "weightlist" }, [
-        _c(
-          "tbody",
-          [
-            _vm._m(1),
-            _vm._v(" "),
-            _vm._l(_vm.datalists, function(data) {
-              return _c("tr", [
-                _c("td", { staticClass: "date" }, [_vm._v(_vm._s(data.date))]),
-                _vm._v(" "),
-                _c("td", { staticClass: "weight" }, [
-                  _vm._v(_vm._s(data.weight))
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "fat_rate" }, [
-                  _vm._v(_vm._s(data.fat_rate))
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bmi" }, [_vm._v(_vm._s(data.bmi))]),
-                _vm._v(" "),
-                _c("td", { staticClass: "edit" }, [
-                  _c(
-                    "a",
-                    {
-                      on: {
-                        click: function($event) {
-                          return _vm.onClickEdit(data.id)
-                        }
-                      }
-                    },
-                    [_vm._v("Edit")]
-                  )
-                ]),
-                _vm._v(" "),
-                _vm._m(2, true)
-              ])
-            })
-          ],
-          2
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      [
-        _c("weight-input-dialog-component", {
-          attrs: { show: _vm.showInputDialogContent },
-          on: { update: _vm.invokeUpdateList }
-        }),
-        _vm._v(" "),
-        _c("weight-edit-dialog-component", {
-          ref: "editDialog",
-          attrs: { show: _vm.showEditDialogContent },
-          on: { update: _vm.invokeUpdateList }
-        })
-      ],
-      1
-    )
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { attrs: { id: "navi" } }, [
-      _vm._v("> "),
-      _c("a", { attrs: { href: "/home" } }, [_vm._v("HOME")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", { staticClass: "date" }, [_vm._v("日時")]),
-      _vm._v(" "),
-      _c("th", { staticClass: "weight" }, [_vm._v("体重(kg)")]),
-      _vm._v(" "),
-      _c("th", { staticClass: "fat_rate" }, [_vm._v("体脂肪(%)")]),
-      _vm._v(" "),
-      _c("th", { staticClass: "bmi" }, [_vm._v("BMI")]),
-      _vm._v(" "),
-      _c("th", { staticClass: "edit" }),
-      _vm._v(" "),
-      _c("th", { staticClass: "delele" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "delele" }, [
-      _c("a", { attrs: { href: "" } }, [_vm._v("Delete")])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-331b6580", module.exports)
-  }
-}
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(2)
-/* script */
-var __vue_script__ = __webpack_require__(64)
-/* template */
-var __vue_template__ = __webpack_require__(65)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -45778,7 +45498,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 64 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -45864,7 +45584,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 65 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -46006,6 +45726,534 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-2c78c3ec", module.exports)
+  }
+}
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(53)
+/* template */
+var __vue_template__ = __webpack_require__(54)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/WeightListComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-331b6580", Component.options)
+  } else {
+    hotAPI.reload("data-v-331b6580", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            showInputDialogContent: false,
+            showEditDialogContent: false,
+            showDeleteDialogContent: false,
+            datalists: []
+        };
+    },
+
+    created: function created() {
+        this.updateList();
+    },
+    methods: {
+        onClickInput: function onClickInput() {
+            this.showInputDialogContent = true;
+        },
+        onClickEdit: function onClickEdit(id) {
+            var editData = {};
+            this.datalists.forEach(function (element) {
+                if (element.id == id) {
+                    editData.id = id;
+                    editData.weight = element.weight;
+                    editData.fat_rate = element.fat_rate;
+                    editData.bmi = element.bmi;
+                    return true;
+                }
+            });
+            this.$refs.editDialog.dataSet(editData);
+            this.showEditDialogContent = true;
+        },
+        onClickDelete: function onClickDelete(id) {
+            var editData = {};
+            this.datalists.forEach(function (element) {
+                if (element.id == id) {
+                    editData.id = id;
+                    editData.date = element.date;
+                    editData.weight = element.weight;
+                    editData.fat_rate = element.fat_rate;
+                    editData.bmi = element.bmi;
+                    return true;
+                }
+            });
+            this.$refs.deleteDialog.dataSet(editData);
+            this.showDeleteDialogContent = true;
+        },
+        invokeUpdateList: function invokeUpdateList() {
+            this.updateList();
+        },
+        updateList: function updateList() {
+            this.datalists = [];
+            var self = this;
+            axios.post('api/weight/list').then(function (response) {
+                response.data.dataLists.forEach(function (element) {
+                    self.datalists.push({
+                        id: element.id,
+                        date: element.datetime,
+                        weight: element.weight,
+                        fat_rate: element.fat_rate,
+                        bmi: element.bmi
+                    });
+                });
+            }).catch(function (error) {});
+        }
+    }
+});
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("p", { attrs: { id: "inputbutton" } }, [
+        _c("button", { on: { click: _vm.onClickInput } }, [
+          _vm._v("データ入力")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("table", { staticClass: "weightlist" }, [
+        _c(
+          "tbody",
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._l(_vm.datalists, function(data) {
+              return _c("tr", [
+                _c("td", { staticClass: "date" }, [_vm._v(_vm._s(data.date))]),
+                _vm._v(" "),
+                _c("td", { staticClass: "weight" }, [
+                  _vm._v(_vm._s(data.weight))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "fat_rate" }, [
+                  _vm._v(_vm._s(data.fat_rate))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "bmi" }, [_vm._v(_vm._s(data.bmi))]),
+                _vm._v(" "),
+                _c("td", { staticClass: "edit" }, [
+                  _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.onClickEdit(data.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "delele" }, [
+                  _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.onClickDelete(data.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ])
+              ])
+            })
+          ],
+          2
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      [
+        _c("weight-input-dialog-component", {
+          attrs: { show: _vm.showInputDialogContent },
+          on: { update: _vm.invokeUpdateList }
+        }),
+        _vm._v(" "),
+        _c("weight-edit-dialog-component", {
+          ref: "editDialog",
+          attrs: { show: _vm.showEditDialogContent },
+          on: { update: _vm.invokeUpdateList }
+        }),
+        _vm._v(" "),
+        _c("weight-delete-dialog-component", {
+          ref: "deleteDialog",
+          attrs: { show: _vm.showDeleteDialogContent },
+          on: { update: _vm.invokeUpdateList }
+        })
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { attrs: { id: "navi" } }, [
+      _vm._v("> "),
+      _c("a", { attrs: { href: "/home" } }, [_vm._v("HOME")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { staticClass: "date" }, [_vm._v("日時")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "weight" }, [_vm._v("体重(kg)")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "fat_rate" }, [_vm._v("体脂肪(%)")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "bmi" }, [_vm._v("BMI")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "edit" }),
+      _vm._v(" "),
+      _c("th", { staticClass: "delele" })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-331b6580", module.exports)
+  }
+}
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(67)
+/* template */
+var __vue_template__ = __webpack_require__(68)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/WeightDeleteDialogComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c1b74f2a", Component.options)
+  } else {
+    hotAPI.reload("data-v-c1b74f2a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['show'],
+    data: function data() {
+        return {
+            errors: [],
+            error_flg: [],
+            param: {},
+            contents: {
+                date: "",
+                weight: "",
+                fat_rate: "",
+                bmi: ""
+            }
+        };
+    },
+
+    created: function created() {},
+    methods: {
+        dataSet: function dataSet(data) {
+            this.contents = data;
+        },
+        clickDelete: function clickDelete() {
+            var self = this;
+            this.param.contents = this.contents;
+            axios.post('api/weight/delete', this.param).then(function (response) {
+                self.closeModal();
+                self.$emit('update');
+            }).catch(function (error) {
+                self.error_flg = true;
+                self.errors = error.response.data.errors;
+            });
+        },
+        closeModal: function closeModal() {
+            this.$parent.showDeleteDialogContent = false;
+        }
+    }
+});
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.show,
+            expression: "show"
+          }
+        ],
+        attrs: { id: "overlay" }
+      },
+      [
+        _c("div", { attrs: { id: "content" } }, [
+          _vm.error_flg == true
+            ? _c(
+                "p",
+                { staticClass: "error" },
+                [
+                  _c(
+                    "ui",
+                    _vm._l(_vm.errors, function(error) {
+                      return _c("li", [_vm._v(_vm._s(error))])
+                    }),
+                    0
+                  )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c("table", { staticClass: "edit" }, [
+            _c("tbody", [
+              _c("tr", [
+                _c("td", [_vm._v("日時")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(_vm.contents.date))])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("体重")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(_vm.contents.weight))])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("体脂肪")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(_vm.contents.fat_rate))])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("BMI")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(_vm.contents.bmi))])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("p", { attrs: { id: "command" } }, [
+            _c("button", { on: { click: _vm.clickDelete } }, [_vm._v("OK")]),
+            _vm._v(" "),
+            _c("button", { on: { click: _vm.closeModal } }, [
+              _vm._v("キャンセル")
+            ])
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c1b74f2a", module.exports)
   }
 }
 
