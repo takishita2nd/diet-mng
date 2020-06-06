@@ -63,4 +63,12 @@ class ApiController extends Controller
     {
         return response()->json(['dataLists' => $this->weightManagement->list(Auth::user())]);
     }
+
+    /**
+     * グラフ用データを取得する
+     */
+    public function graph(Request $request)
+    {
+        return response()->json(['datas' => $this->weightManagement->getGraphData(Auth::user())]);
+    }
 }

@@ -48,6 +48,18 @@ class WeightManagementRepository
         return $user->WeightManagements()->get();
     }
 
+    public function getGraphData($user)
+    {
+        $datetimes = [];
+        for($i = 0; $i < 10 ; $i++) {
+            $datetimes[] = date('Y-m-d', strtotime('today - '.$i.' day'));
+        }
+
+        return $user->WeightManagements()
+                    ->whereIn(DB::raw('date_format(datetime, "%Y-%m-%d")'), $datetimes)
+                    ->get();
+    }
+
     public function getItemById($id)
     {
         return WeightManagement::where(['id' => $id])->first();
