@@ -82803,6 +82803,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -82810,14 +82826,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             showInputDialogContent: false,
             showEditDialogContent: false,
             showDeleteDialogContent: false,
-            datalists: []
+            datalists: [],
+            pagenates: [],
+            currentPage: 1,
+            maxPage: 1,
+            param: {},
+            contents: {
+                page: ""
+            }
         };
     },
 
+    computed: {
+        prevShow: function prevShow() {
+            return this.currentPage != 1;
+        },
+        nextShow: function nextShow() {
+            return this.currentPage != this.maxPage;
+        }
+    },
     created: function created() {
         this.updateList();
+        this.createPagenate();
     },
     methods: {
+        createPagenate: function createPagenate() {
+            var self = this;
+            this.pagenates = [];
+            axios.post('api/weight/total').then(function (response) {
+                var total = response.data.total;
+                self.maxPage = Math.floor(total / 10) + 1;
+                for (var i = 1; i <= self.maxPage; i++) {
+                    self.pagenates.push(i);
+                }
+            }).catch(function (error) {});
+        },
+        changePage: function changePage(page) {
+            this.currentPage = page;
+            this.updateList();
+        },
+        nextPage: function nextPage() {
+            this.currentPage += 1;
+            if (this.currentPage > this.maxPage) {
+                this.currentPage = this.maxPage;
+            }
+            this.updateList();
+        },
+        prevPage: function prevPage() {
+            this.currentPage -= 1;
+            if (this.currentPage <= 0) {
+                this.currentPage = 0;
+            }
+            this.updateList();
+        },
         onClickInput: function onClickInput() {
             this.showInputDialogContent = true;
         },
@@ -82855,8 +82916,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         updateList: function updateList() {
             this.datalists = [];
+            this.contents.page = this.currentPage;
+            this.param.contents = this.contents;
             var self = this;
-            axios.post('api/weight/list').then(function (response) {
+            axios.post('api/weight/list', this.param).then(function (response) {
                 response.data.dataLists.forEach(function (element) {
                     self.datalists.push({
                         id: element.id,
@@ -82887,6 +82950,67 @@ var render = function() {
         _c("button", { on: { click: _vm.onClickInput } }, [
           _vm._v("データ入力")
         ])
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "pagenate" } }, [
+        _c(
+          "ul",
+          [
+            _c("li", [
+              _vm.prevShow
+                ? _c(
+                    "a",
+                    {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.prevPage()
+                        }
+                      }
+                    },
+                    [_vm._v("<")]
+                  )
+                : _c("b", [_vm._v("<")])
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pagenates, function(page) {
+              return _c("li", [
+                _vm.currentPage != page
+                  ? _c(
+                      "a",
+                      {
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            return _vm.changePage(page)
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c("b", [_vm._v(_vm._s(page))])
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _vm.nextShow
+                ? _c(
+                    "a",
+                    {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.nextPage()
+                        }
+                      }
+                    },
+                    [_vm._v(">")]
+                  )
+                : _c("b", [_vm._v(">")])
+            ])
+          ],
+          2
+        )
       ]),
       _vm._v(" "),
       _c("table", { staticClass: "weightlist" }, [

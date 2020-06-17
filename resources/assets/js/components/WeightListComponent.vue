@@ -5,6 +5,22 @@
             <p id="inputbutton">
                 <button @click="onClickInput">データ入力</button>
             </p>
+            <div id="pagenate">
+                <ul>
+                    <li>
+                        <a href="#" v-if="prevShow" @click="prevPage()">&lt;</a>
+                        <b v-else>&lt;</b>
+                    </li>
+                    <li v-for="page in pagenates">
+                        <a href="#" v-if="currentPage != page" @click="changePage(page)">{{ page }}</a>
+                        <b v-else>{{ page }}</b>
+                    </li>
+                    <li>
+                        <a href="#" v-if="nextShow" @click="nextPage()">&gt;</a>
+                        <b v-else>&gt;</b>
+                    </li>
+                </ul>
+            </div>
             <table class="weightlist">
                 <tbody>
                     <tr>
@@ -36,18 +52,64 @@
 
 <script>
 export default {
-        data() {
+    data() {
         return {
             showInputDialogContent: false,
             showEditDialogContent: false,
             showDeleteDialogContent: false,
             datalists: [],
+            pagenates: [],
+            currentPage: 1,
+            maxPage: 1,
+            param: {},
+            contents: {
+                page: "",
+            },
         };
+    },
+    computed: {
+        prevShow: function() {
+            return this.currentPage != 1;
+        },
+        nextShow: function() {
+            return this.currentPage != this.maxPage;
+        },
     },
     created: function() {
         this.updateList();
+        this.createPagenate();
     },
     methods: {
+        createPagenate: function() {
+            var self = this;
+            this.pagenates = [];
+            axios.post('api/weight/total').then(function(response){
+                var total = response.data.total;
+                self.maxPage = Math.floor(total / 10) + 1;
+                for(var i = 1; i <= self.maxPage; i++) {
+                    self.pagenates.push(i);
+                }
+            }).catch(function(error){
+            });
+        },
+        changePage: function(page) {
+            this.currentPage = page;
+            this.updateList();
+        },
+        nextPage: function() {
+            this.currentPage += 1;
+            if(this.currentPage > this.maxPage) {
+                this.currentPage = this.maxPage;
+            }
+            this.updateList();
+        },
+        prevPage: function() {
+            this.currentPage -= 1;
+            if(this.currentPage <= 0) {
+                this.currentPage = 0;
+            }
+            this.updateList();
+        },
         onClickInput: function() {
             this.showInputDialogContent = true;
         },
@@ -85,8 +147,10 @@ export default {
         },
         updateList: function() {
             this.datalists = [];
+            this.contents.page = this.currentPage;
+            this.param.contents = this.contents;
             var self = this;
-            axios.post('api/weight/list').then(function(response){
+            axios.post('api/weight/list', this.param).then(function(response){
                 response.data.dataLists.forEach(element => {
                     self.datalists.push({
                         id: element.id,

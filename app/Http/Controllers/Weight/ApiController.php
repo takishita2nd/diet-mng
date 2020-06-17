@@ -61,7 +61,15 @@ class ApiController extends Controller
      */
     public function list(Request $request)
     {
-        return response()->json(['dataLists' => $this->weightManagement->list(Auth::user())]);
+        return response()->json(['dataLists' => $this->weightManagement->list(Auth::user(), $request->contents["page"])]);
+    }
+
+    /**
+     * データのレコード数を取得する
+     */
+    public function total(Request $request)
+    {
+        return response()->json(['total' => $this->weightManagement->getTotalRecord(Auth::user())]);
     }
 
     /**

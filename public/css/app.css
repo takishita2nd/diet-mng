@@ -8473,3 +8473,13 @@ p#navi {
   margin-left: 10px;
 }
 
+div#pagenate {
+  text-align: right;
+}
+
+div#pagenate ul li {
+  margin-left: 5px;
+  margin-right: 5px;
+  display: inline;
+}
+

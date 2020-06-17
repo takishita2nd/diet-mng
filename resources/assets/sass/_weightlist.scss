@@ -48,10 +48,18 @@ table.weightlist {
         }
     }
 }
-p#inputbutton{
+p#inputbutton {
     text-align: right;
     margin-right: 10px;
 }
 p#navi {
     margin-left: 10px;
+}
+div#pagenate {
+    text-align: right;
+    ul li {
+        margin-left: 5px;
+        margin-right: 5px;
+        display: inline;
+    }
 }

@@ -43,9 +43,18 @@ class WeightManagementRepository
         $model->delete();
     }
 
-    public function list($user)
+    public function list($user, $page = 1)
     {
-        return $user->WeightManagements()->get();
+        return $user->WeightManagements()
+                    ->orderBy('datetime', 'desc')
+                    ->skip(10 * ($page - 1))
+                    ->limit(10)
+                    ->get();
+    }
+
+    public function getTotalRecord($user)
+    {
+        return $user->WeightManagements()->count();
     }
 
     public function getGraphData($user)

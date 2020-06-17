@@ -25,3 +25,4 @@ Route::post('api/weight/edit', 'Weight\ApiController@edit');
 Route::post('api/weight/delete', 'Weight\ApiController@delete');
 Route::post('api/weight/list', 'Weight\ApiController@list');
 Route::post('api/weight/graph', 'Weight\ApiController@graph');
+Route::post('api/weight/total', 'Weight\ApiController@total');
