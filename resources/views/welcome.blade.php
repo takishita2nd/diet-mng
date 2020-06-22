@@ -43,6 +43,7 @@
 
             .content {
                 text-align: center;
+                margin-top: 80%;
             }
 
             .title {
@@ -62,6 +63,14 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            #whatsthis {
+                text-align: left
+            }
+
+            h1 {
+                margin-top: 50%;
+            }
         </style>
     </head>
     <body>
@@ -79,15 +88,14 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    ダイエット管理ツール
                 </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div id="whatsthis">
+                    <h1>このツールでできること</h1>
+                    <h2>毎日計測した体重、体脂肪、BMIを記録することができます。</h2>
+                    <p>日々の記録の変化がグラフで確認することができます。</p>
+                    <img src="figure1.png"/>
+                    <h2>登録・ご利用は無料です。どなたでもご利用いただけます。</h2>
                 </div>
             </div>
         </div>
