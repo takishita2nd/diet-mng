@@ -81763,6 +81763,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -81771,7 +81776,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             datetimeList: [],
             weightList: [],
             fat_rateList: [],
-            bmiList: []
+            bmiList: [],
+            param: {},
+            contents: {
+                interval: 1
+            }
         };
     },
 
@@ -81780,6 +81789,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.graphUpdate();
     },
     methods: {
+        onClickDay: function onClickDay() {
+            this.contents.interval = 1;
+            this.graphUpdate();
+        },
+        onClickWeek: function onClickWeek() {
+            this.contents.interval = 7;
+            this.graphUpdate();
+        },
+        onClickMonth: function onClickMonth() {
+            this.contents.interval = 30;
+            this.graphUpdate();
+        },
         onClickInput: function onClickInput() {
             this.showInputDialogContent = true;
         },
@@ -81793,7 +81814,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.bmiList = [];
             var ctx = document.getElementById("weight");
             var self = this;
-            axios.post('api/weight/graph').then(function (response) {
+            this.param.contents = this.contents;
+            axios.post('api/weight/graph', this.param).then(function (response) {
                 response.data.datas.forEach(function (element) {
                     self.datetimeList.push(element.datetime);
                     self.weightList.push(element.weight);
@@ -81895,6 +81917,20 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "command" }, [
+          _c("ul", [
+            _c("li", [
+              _c("a", { on: { click: _vm.onClickDay } }, [_vm._v("day")])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("a", { on: { click: _vm.onClickWeek } }, [_vm._v("week")])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("a", { on: { click: _vm.onClickMonth } }, [_vm._v("month")])
+            ])
+          ]),
+          _vm._v(" "),
           _c("ul", [
             _c("li", [
               _c("a", { on: { click: _vm.onClickInput } }, [

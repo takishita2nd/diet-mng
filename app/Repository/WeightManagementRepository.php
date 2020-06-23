@@ -57,11 +57,11 @@ class WeightManagementRepository
         return $user->WeightManagements()->count();
     }
 
-    public function getGraphData($user)
+    public function getGraphData($user, $interval, $days = 10)
     {
         $datetimes = [];
-        for($i = 0; $i < 10 ; $i++) {
-            $datetimes[] = date('Y-m-d', strtotime('today - '.$i.' day'));
+        for($i = 0; $i < $days ; $i++) {
+            $datetimes[] = date('Y-m-d', strtotime('today - '.($i * $interval).' day'));
         }
 
         return $user->WeightManagements()

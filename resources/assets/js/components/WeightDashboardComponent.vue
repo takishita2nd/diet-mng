@@ -6,6 +6,11 @@
             </div>
             <div class="command">
                 <ul>
+                    <li><a @click="onClickDay">day</a></li>
+                    <li><a @click="onClickWeek">week</a></li>
+                    <li><a @click="onClickMonth">month</a></li>
+                </ul>
+                <ul>
                     <li><a @click="onClickInput">クイック入力</a></li>
                     <li><a href="/weight">詳細</a></li>
                 </ul>
@@ -24,6 +29,10 @@ export default {
             weightList: [],
             fat_rateList: [],
             bmiList: [],
+            param: {},
+            contents: {
+                interval: 1,
+            },
         };
     },
     created: function() {
@@ -32,6 +41,18 @@ export default {
         this.graphUpdate();
     },
     methods: {
+        onClickDay: function() {
+            this.contents.interval = 1;
+            this.graphUpdate();
+        },
+        onClickWeek: function() {
+            this.contents.interval = 7;
+            this.graphUpdate();
+        },
+        onClickMonth: function() {
+            this.contents.interval = 30;
+            this.graphUpdate();
+        },
         onClickInput: function() {
             this.showInputDialogContent = true;
         },
@@ -45,7 +66,8 @@ export default {
             this.bmiList = [];
             var ctx = document.getElementById("weight");
             var self = this;
-            axios.post('api/weight/graph').then(function(response){
+            this.param.contents = this.contents
+            axios.post('api/weight/graph', this.param).then(function(response){
                 response.data.datas.forEach(element => {
                     self.datetimeList.push(element.datetime);
                     self.weightList.push(element.weight);

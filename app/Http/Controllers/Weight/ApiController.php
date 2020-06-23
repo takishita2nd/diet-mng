@@ -77,6 +77,6 @@ class ApiController extends Controller
      */
     public function graph(Request $request)
     {
-        return response()->json(['datas' => $this->weightManagement->getGraphData(Auth::user())]);
+        return response()->json(['datas' => $this->weightManagement->getGraphData(Auth::user(), $request->contents["interval"])]);
     }
 }
