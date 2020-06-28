@@ -148,7 +148,35 @@ export default {
             var self = this;
             this.param.contents = this.contents
             axios.post('api/weight/graph', this.param).then(function(response){
+                var max = 0;
+                var min = 1000;
                 response.data.datas.forEach(element => {
+                    switch($id) {
+                        case 1:
+                            if(max < element.weight) {
+                                max = element.weight;
+                            }
+                            if(min > element.weight) {
+                                min = element.weight;
+                            }
+                            break;
+                        case 2:
+                            if(max < element.fat_rate) {
+                                max = element.fat_rate;
+                            }
+                            if(min > element.fat_rate) {
+                                min = element.fat_rate;
+                            }
+                            break;
+                        case 3:
+                            if(max < element.bmi) {
+                                max = element.bmi;
+                            }
+                            if(min > element.bmi) {
+                                min = element.bmi;
+                            }
+                            break;
+                    }
                     self.datetimeList.push(element.datetime);
                     self.weightList.push(element.weight);
                     self.fat_rateList.push(element.fat_rate);
@@ -171,6 +199,8 @@ export default {
                         self.yAxis = self.yAxisBMI;
                         break;
                 }
+                self.yAxis.ticks.suggestedMax = max + 10;
+                self.yAxis.ticks.suggestedMin = min - 10;
                 var myChart = new Chart(ctx, {
                     type: 'line',
                     data: {
