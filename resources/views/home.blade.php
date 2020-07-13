@@ -15,6 +15,8 @@
                     @endif
 
                     <weight-dashboard-component></weight-dashboard-component>
+                    <p></p>
+                    <eating-dashboard-component></eating-dashboard-component>
                 </div>
             </div>
         </div>
