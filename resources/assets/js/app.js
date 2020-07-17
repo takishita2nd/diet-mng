@@ -23,6 +23,7 @@ Vue.component('weight-delete-dialog-component', require('./components/Weight/Wei
 Vue.component('weight-list-component', require('./components/Weight/WeightListComponent.vue'));
 
 Vue.component('eating-dashboard-component', require('./components/Eating/EatingDashboardComponent.vue'));
+Vue.component('eating-input-dialog-component', require('./components/Eating/EatingInputDialogComponent.vue'));
 
 const app = new Vue({
     el: '#app'

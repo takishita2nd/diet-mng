@@ -15,9 +15,7 @@
                 </ul>
             </div>
         </div>
-        <!--
-        <weight-input-dialog-component :show="showInputDialogContent" @update="invokeUpdateList"></weight-input-dialog-component>
-        -->
+        <eating-input-dialog-component :show="showInputDialogContent" @update="invokeUpdateList"></eating-input-dialog-component>
     </div>
 </template>
 
@@ -25,7 +23,7 @@
 export default {
     data() {
         return {
-            //showInputDialogContent: false,
+            showInputDialogContent: false,
             //param: {},
             //contents: {
             //    interval: 1,
@@ -108,11 +106,11 @@ export default {
             //this.graphUpdate(this.graphNum);
         },
         onClickInput: function() {
-            //this.showInputDialogContent = true;
+            this.showInputDialogContent = true;
         },
-        // invokeUpdateList: function() {
-        //     this.graphUpdate(this.graphNum);
-        // },
+        invokeUpdateList: function() {
+            //this.graphUpdate(this.graphNum);
+        },
         // graphUpdate: function($id) {
         //     var ctx = document.getElementById("weight");
         //     var self = this;
