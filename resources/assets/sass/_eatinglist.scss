@@ -1,0 +1,68 @@
+table.eatinglist {
+    width: 100%;
+    tbody tr {
+        th {
+            border: solid;
+            border-width: thin;
+        }
+        .date {
+            width: 20%;
+        }
+        .protein {
+            width: 15%;
+        }
+        .liqid {
+            width: 15%;
+        }
+        .carbo {
+            width: 15%;
+        }
+        .calorie {
+            width: 15%;
+        }
+        .edit {
+            width: 10%;
+        }
+        .delete {
+            width: 10%;
+        }
+        td {
+            border: solid;
+            border-width: thin;
+            text-align: right;
+        }
+        .date {
+            width: 20%;
+        }
+        .weight {
+            width: 20%;
+        }
+        .fat_rate {
+            width: 20%;
+        }
+        .bmi {
+            width: 20%;
+        }
+        .edit {
+            width: 10%;
+        }
+        .delete {
+            width: 10%;
+        }
+    }
+}
+p#inputbutton {
+    text-align: right;
+    margin-right: 10px;
+}
+p#navi {
+    margin-left: 10px;
+}
+div#pagenate {
+    text-align: right;
+    ul li {
+        margin-left: 5px;
+        margin-right: 5px;
+        display: inline;
+    }
+}

@@ -11,7 +11,7 @@
                 </ul>
                 <ul>
                     <li><a @click="onClickInput">クイック入力</a></li>
-                    <li><a href="">詳細</a></li>
+                    <li><a href="/eating">詳細</a></li>
                 </ul>
             </div>
         </div>
