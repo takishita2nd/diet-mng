@@ -15,7 +15,7 @@
                 </ul>
             </div>
         </div>
-        <eating-input-dialog-component :show="showInputDialogContent" @update="invokeUpdateList"></eating-input-dialog-component>
+        <eating-input-dialog-component :show="showInputDialogContent" :datehold=true @update="invokeUpdateList"></eating-input-dialog-component>
     </div>
 </template>
 

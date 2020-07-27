@@ -10,8 +10,26 @@
                 <table class="edit">
                     <tbody>
                         <tr>
+                            <td>日付</td>
+                            <td>
+                                <input type="date" v-model="contents.date" v-if="datehold" readonly>
+                                <input type="date" v-model="contents.date" v-else>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>品名</td>
                             <td><input type="text" v-model="contents.item" /></td>
+                        </tr>
+                        <tr>
+                            <td>時間帯</td>
+                            <td>
+                                <select name="timezone" v-model="contents.timezone">
+                                    <option value="1" selected>朝</option>
+                                    <option value="2">昼</option>
+                                    <option value="3">夜</option>
+                                    <option value="4">間食</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>タンパク質</td>
@@ -41,14 +59,16 @@
 </template>
 <script>
 export default {
-    props: ['show'],
+    props: ['show', 'datehold'],
     data() {
         return {
             errors: [],
             error_flg: [],
             param: {},
             contents: {
+                date: "",
                 item: "",
+                timezone: 1,
                 protein: "",
                 riqid: "",
                 carbo: "",
@@ -57,25 +77,29 @@ export default {
         };
     },
     created: function() {
+        this.clear();
     },
     methods: {
         clickAdd: function() {
-            // var self = this;
-            // this.param.contents = this.contents;
-            // axios.post('api/weight/add', this.param).then(function(response){
-            //     self.clear();
-            //     self.closeModal();
-            //     self.$emit('update');
-            // }).catch(function(error){
-            //     self.error_flg = true;
-            //     self.errors = error.response.data.errors;
-            // });
+            var self = this;
+            this.param.contents = this.contents;
+            axios.post('api/eating/add', this.param).then(function(response){
+                self.clear();
+                self.closeModal();
+                self.$emit('update');
+            }).catch(function(error){
+                self.error_flg = true;
+                self.errors = error.response.data.errors;
+            });
         },
         closeModal: function() {
             this.$parent.showInputDialogContent = false;
         },
         clear: function() {
+            var today = new Date();
+            this.contents.date = today.getFullYear() + "-" + ('00'+(today.getMonth() + 1)).slice( -2 ) + "-" + today.getDate();
             this.contents.item = "";
+            this.contents.timezone = 1;
             this.contents.protein = "";
             this.contents.riqid = "";
             this.contents.carbo = "";
