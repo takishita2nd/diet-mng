@@ -30,3 +30,4 @@ Route::post('api/weight/total', 'Weight\ApiController@total');
 Route::get('/eating', 'Eating\EatingController@index')->name('eating');
 
 Route::post('api/eating/add', 'Eating\ApiController@add');
+Route::post('api/eating/list', 'Eating\ApiController@list');

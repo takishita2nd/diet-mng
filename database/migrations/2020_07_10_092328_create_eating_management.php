@@ -18,7 +18,7 @@ class CreateEatingManagement extends Migration
             $table->date('date');
             $table->text('item');
             $table->integer('protein');
-            $table->integer('riqid');
+            $table->integer('liqid');
             $table->integer('carbo');
             $table->integer('calorie');
             $table->timestamps();

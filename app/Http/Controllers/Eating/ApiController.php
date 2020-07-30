@@ -32,4 +32,11 @@ class ApiController extends Controller
         return response()->json();
     }
 
+    /**
+     * データ一覧を取得する
+     */
+    public function list(Request $request)
+    {
+        return response()->json(['dataLists' => $this->eatingManagement->getDailyList(Auth::user(), $request->contents["page"])]);
+    }
 }

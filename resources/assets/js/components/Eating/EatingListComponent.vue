@@ -30,7 +30,6 @@
                         <th class="carbo">炭水化物</th>
                         <th class="calorie">カロリー</th>
                         <th class="edit"></th>
-                        <th class="delele"></th>
                     </tr>
                     <tr v-for="data in datalists">
                         <td class="date">{{ data.date}}</td>
@@ -38,8 +37,7 @@
                         <td class="liqid">{{ data.liqid}}</td>
                         <td class="carbo">{{ data.carbo}}</td>
                         <td class="calorie">{{ data.calorie}}</td>
-                        <td class="edit"><a @click="onClickEdit(data.id)">Edit</a></td>
-                        <td class="delele"><a @click="onClickDelete(data.id)">Delete</a></td>
+                        <td class="edit"><a @click="onClickEdit(data.date)">Edit</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -80,7 +78,7 @@ export default {
         },
     },
     created: function() {
-        //this.updateList();
+        this.updateList();
         //this.createPagenate();
     },
     methods: {
@@ -117,7 +115,7 @@ export default {
         onClickInput: function() {
             // this.showInputDialogContent = true;
         },
-        onClickEdit: function(id) {
+        onClickEdit: function(date) {
             // var editData = {};
             // this.datalists.forEach(element => {
             //     if(element.id == id){
@@ -131,7 +129,7 @@ export default {
             // this.$refs.editDialog.dataSet(editData);
             // this.showEditDialogContent = true;
         },
-        onClickDelete: function(id) {
+        onClickDelete: function(date) {
             // var editData = {};
             // this.datalists.forEach(element => {
             //     if(element.id == id){
@@ -150,22 +148,22 @@ export default {
             // this.updateList();
         },
         updateList: function() {
-            // this.datalists = [];
-            // this.contents.page = this.currentPage;
-            // this.param.contents = this.contents;
-            // var self = this;
-            // axios.post('api/weight/list', this.param).then(function(response){
-            //     response.data.dataLists.forEach(element => {
-            //         self.datalists.push({
-            //             id: element.id,
-            //             date: element.datetime,
-            //             weight: element.weight,
-            //             fat_rate: element.fat_rate,
-            //             bmi: element.bmi
-            //         })
-            //     });
-            // }).catch(function(error){
-            // });
+            this.datalists = [];
+            this.contents.page = this.currentPage;
+            this.param.contents = this.contents;
+            var self = this;
+            axios.post('api/eating/list', this.param).then(function(response){
+                response.data.dataLists.forEach(element => {
+                    self.datalists.push({
+                        date: element.date,
+                        protein: element.protein,
+                        liqid: element.liqid,
+                        carbo: element.carbo,
+                        calorie: element.calorie
+                    })
+                });
+            }).catch(function(error){
+            });
         }
     }
 }

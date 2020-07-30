@@ -37,7 +37,7 @@
                         </tr>
                         <tr>
                             <td>脂質</td>
-                            <td><input type="number" v-model="contents.riqid" /></td>
+                            <td><input type="number" v-model="contents.liqid" /></td>
                         </tr>
                         <tr>
                             <td>炭水化物</td>
@@ -70,7 +70,7 @@ export default {
                 item: "",
                 timezone: 1,
                 protein: "",
-                riqid: "",
+                liqid: "",
                 carbo: "",
                 calorie: "",
             },
@@ -101,7 +101,7 @@ export default {
             this.contents.item = "";
             this.contents.timezone = 1;
             this.contents.protein = "";
-            this.contents.riqid = "";
+            this.contents.liqid = "";
             this.contents.carbo = "";
             this.contents.calorie = "";
             this.error_flg = false;
