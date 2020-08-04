@@ -37,6 +37,14 @@ class ApiController extends Controller
      */
     public function list(Request $request)
     {
-        return response()->json(['dataLists' => $this->eatingManagement->getDailyList(Auth::user(), $request->contents["page"])]);
+        return response()->json(['dataLists' => $this->eatingManagement->getDailyList(Auth::user())]);
+    }
+
+    /**
+     * 一日分のデータを取得する
+     */
+    public function detail(Request $request)
+    {
+        return response()->json(['dataLists' => $this->eatingManagement->getDetails(Auth::user(), $request->contents['date'])]);
     }
 }

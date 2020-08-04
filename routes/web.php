@@ -28,6 +28,8 @@ Route::post('api/weight/graph', 'Weight\ApiController@graph');
 Route::post('api/weight/total', 'Weight\ApiController@total');
 
 Route::get('/eating', 'Eating\EatingController@index')->name('eating');
+Route::get('/eating/detail/{date}', 'Eating\EatingController@detail')->name('eating/detail');
 
 Route::post('api/eating/add', 'Eating\ApiController@add');
 Route::post('api/eating/list', 'Eating\ApiController@list');
+Route::post('api/eating/detail', 'Eating\ApiController@detail');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Eating;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class EatingController extends Controller
 {
@@ -17,13 +18,13 @@ class EatingController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('eating');
+    }
+
+    public function detail($date)
+    {
+        return view('eatingdetail', ['date' => $date]);
     }
 }

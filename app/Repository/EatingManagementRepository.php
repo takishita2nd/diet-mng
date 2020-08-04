@@ -70,8 +70,27 @@ class EatingManagementRepository
             for($k = 2; $k < count($this->paramNames); $k++) {
                 $retDatas[$index][$this->paramNames[$k]] = $dailyDatas[$dailykey][$this->paramNames[$k]];
             }
+            $index++;
         }
 
+        return $retDatas;
+    }
+
+    public function getDetails($user, $date)
+    {
+        $eatings = $user->EatingManagements()
+            ->where(DB::raw('date_format(date, "%Y-%m-%d")'), $date)
+            ->get();
+        
+        $retDatas = [];
+        $index = [0, 0, 0, 0];
+        foreach($eatings as $eating) {
+            $timezone = $eating->timezones()->first();
+            for($j = 1; $j < count($this->paramNames); $j++) {
+                $retDatas[$timezone->id - 1][$index[$timezone->id - 1]][$this->paramNames[$j]] = $eating->{$this->paramNames[$j]};
+            }
+            $index[$timezone->id - 1]++;
+        }
         return $retDatas;
     }
 
