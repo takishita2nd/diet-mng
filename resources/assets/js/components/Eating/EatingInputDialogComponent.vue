@@ -59,7 +59,7 @@
 </template>
 <script>
 export default {
-    props: ['show', 'datehold'],
+    props: ['show', 'date', 'datehold'],
     data() {
         return {
             errors: [],
@@ -83,7 +83,7 @@ export default {
         clickAdd: function() {
             var self = this;
             this.param.contents = this.contents;
-            axios.post('api/eating/add', this.param).then(function(response){
+            axios.post('/api/eating/add', this.param).then(function(response){
                 self.clear();
                 self.closeModal();
                 self.$emit('update');
@@ -96,8 +96,7 @@ export default {
             this.$parent.showInputDialogContent = false;
         },
         clear: function() {
-            var today = new Date();
-            this.contents.date = today.getFullYear() + "-" + ('00'+(today.getMonth() + 1)).slice( -2 ) + "-" + today.getDate();
+            this.contents.date = this.date;
             this.contents.item = "";
             this.contents.timezone = 1;
             this.contents.protein = "";

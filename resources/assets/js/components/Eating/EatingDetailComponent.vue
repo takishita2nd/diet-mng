@@ -2,6 +2,9 @@
     <div>
         <div>
             <p id="navi">> <a href="/home">HOME</a> / <a href="/eating">食事管理</a></p>
+            <p id="inputbutton">
+                <button @click="onClickInput">データ入力</button>
+            </p>
             <p>{{date}}</p>
             <table class="eatingdetail">
                 <caption>朝</caption>
@@ -88,6 +91,7 @@
                 </tbody>
             </table>
         </div>
+        <eating-input-dialog-component :show="showInputDialogContent" :date="date" :datehold=false @update="invokeUpdateList"></eating-input-dialog-component>
     </div>
 </template>
 
@@ -112,6 +116,9 @@ export default {
         this.updateList();
     },
     methods: {
+        onClickInput: function() {
+            this.showInputDialogContent = true;
+        },
         onClickEdit: function(date) {
             // var editData = {};
             // this.datalists.forEach(element => {
@@ -127,7 +134,7 @@ export default {
             // this.showEditDialogContent = true;
         },
         invokeUpdateList: function() {
-            // this.updateList();
+            this.updateList();
         },
         updateList: function() {
             this.datalists = [];

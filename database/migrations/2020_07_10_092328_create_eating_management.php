@@ -17,10 +17,10 @@ class CreateEatingManagement extends Migration
             $table->increments('id');
             $table->date('date');
             $table->text('item');
-            $table->integer('protein');
-            $table->integer('liqid');
-            $table->integer('carbo');
-            $table->integer('calorie');
+            $table->double('protein');
+            $table->double('liqid');
+            $table->double('carbo');
+            $table->double('calorie');
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';

@@ -15,7 +15,7 @@
                 </ul>
             </div>
         </div>
-        <eating-input-dialog-component :show="showInputDialogContent" :datehold=true @update="invokeUpdateList"></eating-input-dialog-component>
+        <eating-input-dialog-component :show="showInputDialogContent" :date="todayDate" :datehold=true @update="invokeUpdateList"></eating-input-dialog-component>
     </div>
 </template>
 
@@ -24,6 +24,7 @@ export default {
     data() {
         return {
             showInputDialogContent: false,
+            todayDate: "",
             //param: {},
             //contents: {
             //    interval: 1,
@@ -94,6 +95,8 @@ export default {
         };
     },
     created: function() {
+        var today = new Date();
+        this.todayDate = today.getFullYear() + "-" + ('00'+(today.getMonth() + 1)).slice( -2 ) + "-" + ('00'+(today.getDate())).slice(-2);
     },
     mounted: function() {
         //this.graphUpdate(this.graphNum);
