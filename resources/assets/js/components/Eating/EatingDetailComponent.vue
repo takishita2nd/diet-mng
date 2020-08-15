@@ -23,7 +23,7 @@
                         <td class="liqid">{{ data.liqid}}</td>
                         <td class="carbo">{{ data.carbo}}</td>
                         <td class="calorie">{{ data.calorie}}</td>
-                        <td class="edit"><a @click="onClickEdit(data.date)">Edit</a></td>
+                        <td class="edit"><a @click="onClickEdit(0, data.id)">Edit</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -44,7 +44,7 @@
                         <td class="liqid">{{ data.liqid}}</td>
                         <td class="carbo">{{ data.carbo}}</td>
                         <td class="calorie">{{ data.calorie}}</td>
-                        <td class="edit"><a @click="onClickEdit(data.date)">Edit</a></td>
+                        <td class="edit"><a @click="onClickEdit(1, data.id)">Edit</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -65,7 +65,7 @@
                         <td class="liqid">{{ data.liqid}}</td>
                         <td class="carbo">{{ data.carbo}}</td>
                         <td class="calorie">{{ data.calorie}}</td>
-                        <td class="edit"><a @click="onClickEdit(data.date)">Edit</a></td>
+                        <td class="edit"><a @click="onClickEdit(2, data.id)">Edit</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -86,12 +86,13 @@
                         <td class="liqid">{{ data.liqid}}</td>
                         <td class="carbo">{{ data.carbo}}</td>
                         <td class="calorie">{{ data.calorie}}</td>
-                        <td class="edit"><a @click="onClickEdit(data.date)">Edit</a></td>
+                        <td class="edit"><a @click="onClickEdit(3, data.id)">Edit</a></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <eating-input-dialog-component :show="showInputDialogContent" :date="date" :datehold=false @update="invokeUpdateList"></eating-input-dialog-component>
+        <eating-edit-dialog-component ref="editDialog" :show="showEditDialogContent" :date="date" :datehold=true @update="invokeUpdateList"></eating-edit-dialog-component>
     </div>
 </template>
 
@@ -105,6 +106,7 @@ export default {
             showInputDialogContent: false,
             showEditDialogContent: false,
             showDeleteDialogContent: false,
+            editid: "",
             datalists: [],
             param: {},
             contents: {
@@ -119,19 +121,23 @@ export default {
         onClickInput: function() {
             this.showInputDialogContent = true;
         },
-        onClickEdit: function(date) {
-            // var editData = {};
-            // this.datalists.forEach(element => {
-            //     if(element.id == id){
-            //         editData.id = id;
-            //         editData.weight = element.weight;
-            //         editData.fat_rate = element.fat_rate;
-            //         editData.bmi = element.bmi;
-            //         return true;
-            //     }
-            // });
-            // this.$refs.editDialog.dataSet(editData);
-            // this.showEditDialogContent = true;
+        onClickEdit: function(timezone, id) {
+            var editData = {};
+            this.datalists[timezone].forEach(element => {
+                if(element.id == id){
+                    editData.id = id;
+                    editData.date = this.date;
+                    editData.item = element.item;
+                    editData.timezone = timezone + 1;
+                    editData.protein = element.protein;
+                    editData.liqid = element.liqid;
+                    editData.carbo = element.carbo;
+                    editData.calorie = element.calorie;
+                    return true;
+                }
+            });
+            this.$refs.editDialog.dataSet(editData);
+            this.showEditDialogContent = true;
         },
         invokeUpdateList: function() {
             this.updateList();
@@ -142,19 +148,25 @@ export default {
             this.param.contents = this.contents;
             var self = this;
             axios.post('/api/eating/detail', this.param).then(function(response){
-                response.data.dataLists.forEach(element => {
-                    var data = [];
-                    element.forEach(element2 => {
-                        data.push({
-                            item: element2.item,
-                            protein: element2.protein,
-                            liqid: element2.liqid,
-                            carbo: element2.carbo,
-                            calorie: element2.calorie
-                        })
-                    })
-                    self.datalists.push(data);
-                });
+                for(var timezone = 0; timezone < 4; timezone++) {
+                    if(response.data.dataLists[timezone]) {
+                        var data = [];
+                        response.data.dataLists[timezone].forEach(element => {
+                            data.push({
+                                id: element.id,
+                                item: element.item,
+                                protein: element.protein,
+                                liqid: element.liqid,
+                                carbo: element.carbo,
+                                calorie: element.calorie
+                            })
+                        });
+                        self.datalists.push(data);
+                    }else{
+                        var data = [];
+                        self.datalists.push(data);
+                    }
+                }
             }).catch(function(error){
             });
         }

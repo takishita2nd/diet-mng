@@ -47,4 +47,21 @@ class ApiController extends Controller
     {
         return response()->json(['dataLists' => $this->eatingManagement->getDetails(Auth::user(), $request->contents['date'])]);
     }
+
+    /**
+     * データを一件取得する
+     */
+    public function update(Request $request)
+    {
+        $paramNames = $this->eatingManagement->getParam();
+
+        $param = [];
+        foreach($paramNames as $name) {
+            $param[$name] = $request->contents[$name];
+        }
+
+        $this->eatingManagement->update($param, Auth::user(),  $request->contents['id'], $request->contents['timezone']);
+        
+        return response()->json();
+    }
 }

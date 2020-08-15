@@ -35,6 +35,24 @@ class EatingManagementRepository
     }
 
     /**
+     * データを一件取得する
+     */
+    public function update($param, $user, $id, $timezone)
+    {
+        $model = $user->EatingManagements()->where('id', $id)->first();
+        foreach($this->paramNames as $name)
+        {
+            $model->$name = $param[$name];
+        }
+        $model->save();
+        $oldtime = $model->timezones()->first();
+        $newtime = Timezone::where('id', $timezone)->first();
+
+        $this->detachToTimezone($model, $oldtime);
+        $this->attachToTimezone($model, $newtime);
+    }
+
+    /**
      * データを取得して日毎にまとめる
      */
     public function getDailyList($user, $page = 1, $days = 10)
@@ -86,6 +104,7 @@ class EatingManagementRepository
         $index = [0, 0, 0, 0];
         foreach($eatings as $eating) {
             $timezone = $eating->timezones()->first();
+            $retDatas[$timezone->id - 1][$index[$timezone->id - 1]]['id'] = $eating->id;
             for($j = 1; $j < count($this->paramNames); $j++) {
                 $retDatas[$timezone->id - 1][$index[$timezone->id - 1]][$this->paramNames[$j]] = $eating->{$this->paramNames[$j]};
             }

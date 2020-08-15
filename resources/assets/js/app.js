@@ -24,6 +24,7 @@ Vue.component('weight-list-component', require('./components/Weight/WeightListCo
 
 Vue.component('eating-dashboard-component', require('./components/Eating/EatingDashboardComponent.vue'));
 Vue.component('eating-input-dialog-component', require('./components/Eating/EatingInputDialogComponent.vue'));
+Vue.component('eating-edit-dialog-component', require('./components/Eating/EatingEditDialogComponent.vue'));
 Vue.component('eating-list-component', require('./components/Eating/EatingListComponent.vue'));
 Vue.component('eating-detail-component', require('./components/Eating/EatingDetailComponent.vue'));
 
