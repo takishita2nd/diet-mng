@@ -16,6 +16,7 @@
                         <th class="carbo">炭水化物</th>
                         <th class="calorie">カロリー</th>
                         <th class="edit"></th>
+                        <th class="delete"></th>
                     </tr>
                     <tr v-for="data in datalists[0]">
                         <td class="item">{{ data.item}}</td>
@@ -24,6 +25,7 @@
                         <td class="carbo">{{ data.carbo}}</td>
                         <td class="calorie">{{ data.calorie}}</td>
                         <td class="edit"><a @click="onClickEdit(0, data.id)">Edit</a></td>
+                        <td class="delete"><a @click="onClickDelete(0, data.id)">Delete</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -37,6 +39,7 @@
                         <th class="carbo">炭水化物</th>
                         <th class="calorie">カロリー</th>
                         <th class="edit"></th>
+                        <th class="delete"></th>
                     </tr>
                     <tr v-for="data in datalists[1]">
                         <td class="item">{{ data.item}}</td>
@@ -45,6 +48,7 @@
                         <td class="carbo">{{ data.carbo}}</td>
                         <td class="calorie">{{ data.calorie}}</td>
                         <td class="edit"><a @click="onClickEdit(1, data.id)">Edit</a></td>
+                        <td class="delete"><a @click="onClickDelete(1, data.id)">Delete</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -58,6 +62,7 @@
                         <th class="carbo">炭水化物</th>
                         <th class="calorie">カロリー</th>
                         <th class="edit"></th>
+                        <th class="delete"></th>
                     </tr>
                     <tr v-for="data in datalists[2]">
                         <td class="item">{{ data.item}}</td>
@@ -66,6 +71,7 @@
                         <td class="carbo">{{ data.carbo}}</td>
                         <td class="calorie">{{ data.calorie}}</td>
                         <td class="edit"><a @click="onClickEdit(2, data.id)">Edit</a></td>
+                        <td class="delete"><a @click="onClickDelete(2, data.id)">Delete</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -79,6 +85,7 @@
                         <th class="carbo">炭水化物</th>
                         <th class="calorie">カロリー</th>
                         <th class="edit"></th>
+                        <th class="delete"></th>
                     </tr>
                     <tr v-for="data in datalists[3]">
                         <td class="item">{{ data.item}}</td>
@@ -87,12 +94,14 @@
                         <td class="carbo">{{ data.carbo}}</td>
                         <td class="calorie">{{ data.calorie}}</td>
                         <td class="edit"><a @click="onClickEdit(3, data.id)">Edit</a></td>
+                        <td class="delete"><a @click="onClickDelete(3, data.id)">Delete</a></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <eating-input-dialog-component :show="showInputDialogContent" :date="date" :datehold=false @update="invokeUpdateList"></eating-input-dialog-component>
         <eating-edit-dialog-component ref="editDialog" :show="showEditDialogContent" :date="date" :datehold=true @update="invokeUpdateList"></eating-edit-dialog-component>
+        <eating-delete-dialog-component ref="deleteDialog" :show="showDeleteDialogContent" :date="date" :datehold=true @update="invokeUpdateList"></eating-delete-dialog-component>
     </div>
 </template>
 
@@ -138,6 +147,24 @@ export default {
             });
             this.$refs.editDialog.dataSet(editData);
             this.showEditDialogContent = true;
+        },
+        onClickDelete: function(timezone, id) {
+            var deleteData = {};
+            this.datalists[timezone].forEach(element => {
+                if(element.id == id){
+                    deleteData.id = id;
+                    deleteData.date = this.date;
+                    deleteData.item = element.item;
+                    deleteData.timezone = timezone + 1;
+                    deleteData.protein = element.protein;
+                    deleteData.liqid = element.liqid;
+                    deleteData.carbo = element.carbo;
+                    deleteData.calorie = element.calorie;
+                    return true;
+                }
+            });
+            this.$refs.deleteDialog.dataSet(deleteData);
+            this.showDeleteDialogContent = true;
         },
         invokeUpdateList: function() {
             this.updateList();

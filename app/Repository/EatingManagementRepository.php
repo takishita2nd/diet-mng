@@ -53,6 +53,19 @@ class EatingManagementRepository
     }
 
     /**
+     * データを一件削除する
+     */
+    public function delete($user, $id)
+    {
+        $model = $user->EatingManagements()->where('id', $id)->first();
+        $timezone = $model->timezones()->first();
+
+        $this->detachToUser($model, $user);
+        $this->detachToTimezone($model, $timezone);
+        $model->delete();
+    }
+
+    /**
      * データを取得して日毎にまとめる
      */
     public function getDailyList($user, $page = 1, $days = 10)

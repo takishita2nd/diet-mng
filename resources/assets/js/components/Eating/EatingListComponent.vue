@@ -49,7 +49,7 @@ export default {
             this.datalists = [];
             this.param.contents = this.contents;
             var self = this;
-            axios.post('api/eating/list', this.param).then(function(response){
+            axios.post('/api/eating/list', this.param).then(function(response){
                 response.data.dataLists.forEach(element => {
                     self.datalists.push({
                         date: element.date,

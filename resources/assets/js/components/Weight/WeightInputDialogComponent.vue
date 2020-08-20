@@ -52,7 +52,7 @@ export default {
         clickAdd: function() {
             var self = this;
             this.param.contents = this.contents;
-            axios.post('api/weight/add', this.param).then(function(response){
+            axios.post('/api/weight/add', this.param).then(function(response){
                 self.clear();
                 self.closeModal();
                 self.$emit('update');

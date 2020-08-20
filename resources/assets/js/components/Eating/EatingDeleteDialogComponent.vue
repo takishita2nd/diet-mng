@@ -10,26 +10,38 @@
                 <table class="edit">
                     <tbody>
                         <tr>
-                            <td>日時</td>
+                            <td>日付</td>
                             <td>{{contents.date}}</td>
                         </tr>
                         <tr>
-                            <td>体重</td>
-                            <td>{{contents.weight}}</td>
+                            <td>品名</td>
+                            <td>{{contents.item}}</td>
                         </tr>
                         <tr>
-                            <td>体脂肪</td>
-                            <td>{{contents.fat_rate}}</td>
+                            <td>時間帯</td>
+                            <td>{{contents.time}}</td>
                         </tr>
                         <tr>
-                            <td>BMI</td>
-                            <td>{{contents.bmi}}</td>
+                            <td>タンパク質</td>
+                            <td>{{contents.protein}}</td>
+                        </tr>
+                        <tr>
+                            <td>脂質</td>
+                            <td>{{contents.liqid}}</td>
+                        </tr>
+                        <tr>
+                            <td>炭水化物</td>
+                            <td>{{contents.carbo}}</td>
+                        </tr>
+                        <tr>
+                            <td>カロリー</td>
+                            <td>{{contents.calorie}}</td>
                         </tr>
                     </tbody>
                 </table>
                 <p id="command">
-                    <button @click="clickDelete">OK</button>
-                    <button @click="closeModal">キャンセル</button>
+                    <button @click="clickDelete">削除</button>
+                    <button @click="closeModal">閉じる</button>
                 </p>
             </div>
         </div>
@@ -43,12 +55,7 @@ export default {
             errors: [],
             error_flg: [],
             param: {},
-            contents: {
-                date: "",
-                weight: "",
-                fat_rate: "",
-                bmi: "",
-            },
+            contents: {},
         };
     },
     created: function() {
@@ -56,11 +63,25 @@ export default {
     methods: {
         dataSet: function(data) {
             this.contents = data;
+            switch(this.contents.timezone) {
+                case 1:
+                    this.contents.time = "朝";
+                    break;
+                case 2:
+                    this.contents.time = "昼";
+                    break;
+                case 3:
+                    this.contents.time = "夜";
+                    break;
+                case 4:
+                    this.contents.time = "間食";
+                    break;
+            }
         },
         clickDelete: function() {
             var self = this;
             this.param.contents = this.contents;
-            axios.post('/api/weight/delete', this.param).then(function(response){
+            axios.post('/api/eating/delete', this.param).then(function(response){
                 self.closeModal();
                 self.$emit('update');
             }).catch(function(error){

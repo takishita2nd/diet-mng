@@ -147,7 +147,7 @@ export default {
             var ctx = document.getElementById("weight");
             var self = this;
             this.param.contents = this.contents
-            axios.post('api/weight/graph', this.param).then(function(response){
+            axios.post('/api/weight/graph', this.param).then(function(response){
                 var max = 0;
                 var min = 1000;
                 response.data.datas.forEach(element => {

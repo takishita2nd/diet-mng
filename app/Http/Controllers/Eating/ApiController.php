@@ -64,4 +64,14 @@ class ApiController extends Controller
         
         return response()->json();
     }
+
+    /**
+     * データを一件削除する
+     */
+    public function delete(Request $request)
+    {
+        $this->eatingManagement->delete(Auth::user(),  $request->contents['id']);
+
+        return response()->json();
+    }
 }

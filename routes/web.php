@@ -32,5 +32,6 @@ Route::get('/eating/detail/{date}', 'Eating\EatingController@detail')->name('eat
 
 Route::post('api/eating/add', 'Eating\ApiController@add');
 Route::post('api/eating/update', 'Eating\ApiController@update');
+Route::post('api/eating/delete', 'Eating\ApiController@delete');
 Route::post('api/eating/list', 'Eating\ApiController@list');
 Route::post('api/eating/detail', 'Eating\ApiController@detail');
