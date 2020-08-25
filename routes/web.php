@@ -35,3 +35,4 @@ Route::post('api/eating/update', 'Eating\ApiController@update');
 Route::post('api/eating/delete', 'Eating\ApiController@delete');
 Route::post('api/eating/list', 'Eating\ApiController@list');
 Route::post('api/eating/detail', 'Eating\ApiController@detail');
+Route::post('api/eating/graph', 'Eating\ApiController@graph');

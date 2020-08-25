@@ -107,6 +107,27 @@ class EatingManagementRepository
         return $retDatas;
     }
 
+    /**
+     * 一日あたりのデータを取得する
+     */
+    public function getDaily($user, $date)
+    {
+        $eatings = $user->EatingManagements()
+            ->where(DB::raw('date_format(date, "%Y-%m-%d")'), $date)
+            ->get();
+
+        $retDatas = [];
+        for($j = 2; $j < count($this->paramNames); $j++) {
+            $retDatas[$this->paramNames[$j]] = 0;
+        }
+        foreach($eatings as $eating) {
+            for($j = 2; $j < count($this->paramNames); $j++) {
+                $retDatas[$this->paramNames[$j]] += $eating->{$this->paramNames[$j]};
+            }
+        }
+        return $retDatas;
+    }
+
     public function getDetails($user, $date)
     {
         $eatings = $user->EatingManagements()

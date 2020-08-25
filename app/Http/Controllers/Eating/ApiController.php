@@ -74,4 +74,12 @@ class ApiController extends Controller
 
         return response()->json();
     }
+
+    /**
+     * グラフ用データを取得する
+     */
+    public function graph(Request $request)
+    {
+        return response()->json(['data' => $this->eatingManagement->getDaily(Auth::user(), $request->contents['date'])]);
+    }
 }
