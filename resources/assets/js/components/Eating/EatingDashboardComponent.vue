@@ -6,6 +6,9 @@
             </div>
             <div class="command">
                 <ul>
+                    <li><a @click="onClickCalcCalorie">目標カロリー</a></li>
+                </ul>
+                <ul>
                     <li><a @click="onClickPrev">prev</a></li>
                     <li><a @click="onClickNext">next</a></li>
                 </ul>
@@ -16,6 +19,7 @@
             </div>
         </div>
         <eating-input-dialog-component :show="showInputDialogContent" :date="todayDate" :datehold=true @update="invokeUpdateList"></eating-input-dialog-component>
+        <eating-calc-target-calorie-component :show="showCalcCalorieContent" @update="invokeUpdateList"></eating-calc-target-calorie-component>
     </div>
 </template>
 
@@ -24,6 +28,7 @@ export default {
     data() {
         return {
             showInputDialogContent: false,
+            showCalcCalorieContent: false,
             todayDate: "",
             param: {},
             contents: {
@@ -63,6 +68,9 @@ export default {
         },
         onClickInput: function() {
             this.showInputDialogContent = true;
+        },
+        onClickCalcCalorie: function() {
+            this.showCalcCalorieContent = true;
         },
         invokeUpdateList: function() {
             this.graphUpdate();
