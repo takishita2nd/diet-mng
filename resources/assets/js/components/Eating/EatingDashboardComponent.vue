@@ -36,12 +36,6 @@ export default {
             },
             label: ['タンパク質', '脂質', '炭水化物', 'カロリー'],
             datasets: [],
-            baseData: {
-                protein: 120.0,
-                liqid: 55.5,
-                carbo: 255.0,
-                calorie: 2000.0
-            },
             sub: 0,
         };
     },
@@ -83,10 +77,10 @@ export default {
             this.datasets = [];
             axios.post('api/eating/graph', this.param).then(function(response){
                 if(response.data.data != null) {
-                    self.datasets.push(response.data.data.protein / self.baseData.protein * 100);
-                    self.datasets.push(response.data.data.liqid / self.baseData.liqid * 100);
-                    self.datasets.push(response.data.data.carbo / self.baseData.carbo * 100);
-                    self.datasets.push(response.data.data.calorie / self.baseData.calorie * 100);
+                    self.datasets.push(Math.ceil(response.data.data.protein / response.data.target.protein * 100));
+                    self.datasets.push(Math.ceil(response.data.data.liqid / response.data.target.liqid * 100));
+                    self.datasets.push(Math.ceil(response.data.data.carbo / response.data.target.carbo * 100));
+                    self.datasets.push(Math.ceil(response.data.data.calorie / response.data.target.calorie * 100));
                     var myChart = new Chart(ctx, {
                         type: 'radar',
                         data: {

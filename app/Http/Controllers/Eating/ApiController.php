@@ -80,6 +80,23 @@ class ApiController extends Controller
      */
     public function graph(Request $request)
     {
-        return response()->json(['data' => $this->eatingManagement->getDaily(Auth::user(), $request->contents['date'])]);
+        return response()->json([
+            'data' => $this->eatingManagement->getDaily(Auth::user(), $request->contents['date']), 
+            'target' => $this->eatingManagement->getTarget(Auth::user())
+            ]);
+    }
+
+    /**
+     * 目標栄養素を設定する
+     */
+    public function setTarget(Request $request)
+    {
+        $paramNames = $this->eatingManagement->getTargetParam();
+        $param = [];
+        foreach($paramNames as $name) {
+            $param[$name] = $request->contents[$name];
+        }
+        $this->eatingManagement->setTarget($param, Auth::user());
+        return response()->json();
     }
 }

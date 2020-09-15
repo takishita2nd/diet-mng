@@ -56,7 +56,7 @@
                         </tr>
                         <tr>
                             <td>脂質</td>
-                            <td>{{liquid}} g</td>
+                            <td>{{liqid}} g</td>
                         </tr>
                         <tr>
                             <td>炭水化物</td>
@@ -90,7 +90,7 @@ export default {
             contents: {
                 calorie: 0,
                 protein: 0,
-                liquid: 0,
+                liqid: 0,
                 carbo: 0,
             },
         };
@@ -122,12 +122,12 @@ export default {
             this.contents.protein = this.inputParameter.weight * 2;
             return this.contents.protein;
         },
-        liquid: function() {
-            this.contents.liquid = Math.ceil(this.contents.calorie * 0.25 / 9);
-            return this.contents.liquid;
+        liqid: function() {
+            this.contents.liqid = Math.ceil(this.contents.calorie * 0.25 / 9);
+            return this.contents.liqid;
         },
         carbo: function() {
-            this.contents.carbo = Math.ceil((this.contents.calorie - this.contents.protein * 4 - this.contents.liquid * 9) / 4);
+            this.contents.carbo = Math.ceil((this.contents.calorie - this.contents.protein * 4 - this.contents.liqid * 9) / 4);
             return this.contents.carbo;
         },
     },
@@ -136,6 +136,8 @@ export default {
             var self = this;
             this.param.contents = this.contents;
             axios.post('/api/eating/settarget', this.param).then(function(response){
+                self.closeModal();
+                self.$emit('update');
             }).catch(function(error){
                 self.error_flg = true;
                 self.errors = error.response.data.errors;
@@ -152,7 +154,7 @@ export default {
             this.inputParameter.target = "1";
             this.contents.calorie = 0;
             this.contents.protein = 0;
-            this.contents.liquid = 0;
+            this.contents.liqid = 0;
             this.contents.carbo = 0;
             this.error_flg = false;
             this.errors = [];

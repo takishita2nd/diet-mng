@@ -5,12 +5,14 @@ namespace App\Repository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Model\EatingManagement;
+use App\Model\EatingTarget;
 use App\Model\Timezone;
 use App\User;
 
 class EatingManagementRepository
 {
     private $paramNames = ['date', 'item', 'protein', 'liqid', 'carbo', 'calorie'];
+    private $targetParamNames = ['protein', 'liqid', 'carbo', 'calorie'];
 
     public function __construct()
     {
@@ -147,6 +149,27 @@ class EatingManagementRepository
         return $retDatas;
     }
 
+    public function setTarget($param, $user)
+    {
+        $model = $user->EatingTargets()->first();
+        if(is_null($model)) {
+            $model = new EatingTarget();
+        }
+
+        foreach($this->targetParamNames as $name)
+        {
+            $model->$name = $param[$name];
+        }
+        $model->save();
+
+        $this->attachToUser($model, $user);
+    }
+
+    public function getTarget($user)
+    {
+        return $user->EatingTargets()->first();
+    }
+
     public function attachToUser($model, $user)
     {
         $model->users()->attach($user);
@@ -170,6 +193,11 @@ class EatingManagementRepository
     public function getParam()
     {
         return $this->paramNames;
+    }
+
+    public function getTargetParam()
+    {
+        return $this->targetParamNames;
     }
 
 }
