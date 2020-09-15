@@ -83,7 +83,7 @@ export default {
         createPagenate: function() {
             var self = this;
             this.pagenates = [];
-            axios.post('api/weight/total').then(function(response){
+            axios.post('/api/weight/total').then(function(response){
                 var total = response.data.total;
                 self.maxPage = Math.floor(total / 10) + 1;
                 for(var i = 1; i <= self.maxPage; i++) {
@@ -150,7 +150,7 @@ export default {
             this.contents.page = this.currentPage;
             this.param.contents = this.contents;
             var self = this;
-            axios.post('api/weight/list', this.param).then(function(response){
+            axios.post('/api/weight/list', this.param).then(function(response){
                 response.data.dataLists.forEach(element => {
                     self.datalists.push({
                         id: element.id,

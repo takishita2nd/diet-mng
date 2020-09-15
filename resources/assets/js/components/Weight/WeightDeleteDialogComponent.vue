@@ -10,22 +10,26 @@
                 <table class="edit">
                     <tbody>
                         <tr>
+                            <td>日時</td>
+                            <td>{{contents.date}}</td>
+                        </tr>
+                        <tr>
                             <td>体重</td>
-                            <td><input type="number" v-model="contents.weight" /></td>
+                            <td>{{contents.weight}}</td>
                         </tr>
                         <tr>
                             <td>体脂肪</td>
-                            <td><input type="number" v-model="contents.fat_rate" /></td>
+                            <td>{{contents.fat_rate}}</td>
                         </tr>
                         <tr>
                             <td>BMI</td>
-                            <td><input type="number" v-model="contents.bmi" /></td>
+                            <td>{{contents.bmi}}</td>
                         </tr>
                     </tbody>
                 </table>
                 <p id="command">
-                    <button @click="clickAdd">入力</button>
-                    <button @click="closeModal">閉じる</button>
+                    <button @click="clickDelete">OK</button>
+                    <button @click="closeModal">キャンセル</button>
                 </p>
             </div>
         </div>
@@ -40,7 +44,7 @@ export default {
             error_flg: [],
             param: {},
             contents: {
-                id: "",
+                date: "",
                 weight: "",
                 fat_rate: "",
                 bmi: "",
@@ -53,11 +57,10 @@ export default {
         dataSet: function(data) {
             this.contents = data;
         },
-        clickAdd: function() {
+        clickDelete: function() {
             var self = this;
             this.param.contents = this.contents;
-            axios.post('api/weight/edit', this.param).then(function(response){
-                self.clear();
+            axios.post('/api/weight/delete', this.param).then(function(response){
                 self.closeModal();
                 self.$emit('update');
             }).catch(function(error){
@@ -66,15 +69,8 @@ export default {
             });
         },
         closeModal: function() {
-            this.$parent.showEditDialogContent = false;
+            this.$parent.showDeleteDialogContent = false;
         },
-        clear: function() {
-            this.contents.weight = "";
-            this.contents.fat_rate = "";
-            this.contents.bmi = "";
-            this.error_flg = false;
-            this.errors = [];
-        }
     }
 }
 </script>

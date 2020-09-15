@@ -32,4 +32,13 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Model\WeightManagement');
     }
 
+    public function EatingManagements()
+    {
+        return $this->belongsToMany('App\Model\EatingManagement');
+    }
+
+    public function EatingTargets()
+    {
+        return $this->belongsToMany('App\Model\EatingTarget');
+    }
 }

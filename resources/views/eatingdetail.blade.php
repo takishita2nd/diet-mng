@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">食事管理</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -13,11 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <weight-dashboard-component></weight-dashboard-component>
-                    <p></p>
-                    <eating-dashboard-component></eating-dashboard-component>
                 </div>
+                <eating-detail-component date={{$date}}></eating-detail-component>
             </div>
         </div>
     </div>
