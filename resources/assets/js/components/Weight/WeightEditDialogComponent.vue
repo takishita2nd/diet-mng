@@ -40,6 +40,7 @@ export default {
             error_flg: [],
             param: {},
             contents: {
+                id: "",
                 weight: "",
                 fat_rate: "",
                 bmi: "",
@@ -49,10 +50,13 @@ export default {
     created: function() {
     },
     methods: {
+        dataSet: function(data) {
+            this.contents = data;
+        },
         clickAdd: function() {
             var self = this;
             this.param.contents = this.contents;
-            axios.post('api/weight/add', this.param).then(function(response){
+            axios.post('/api/weight/edit', this.param).then(function(response){
                 self.clear();
                 self.closeModal();
                 self.$emit('update');
@@ -62,7 +66,7 @@ export default {
             });
         },
         closeModal: function() {
-            this.$parent.showInputDialogContent = false;
+            this.$parent.showEditDialogContent = false;
         },
         clear: function() {
             this.contents.weight = "";

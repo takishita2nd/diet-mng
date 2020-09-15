@@ -16,12 +16,19 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('weight-dashboard-component', require('./components/WeightDashboardComponent.vue'));
-Vue.component('weight-input-dialog-component', require('./components/WeightInputDialogComponent.vue'));
-Vue.component('weight-edit-dialog-component', require('./components/WeightEditDialogComponent.vue'));
-Vue.component('weight-delete-dialog-component', require('./components/WeightDeleteDialogComponent.vue'));
-Vue.component('weight-list-component', require('./components/WeightListComponent.vue'));
+Vue.component('weight-dashboard-component', require('./components/Weight/WeightDashboardComponent.vue'));
+Vue.component('weight-input-dialog-component', require('./components/Weight/WeightInputDialogComponent.vue'));
+Vue.component('weight-edit-dialog-component', require('./components/Weight/WeightEditDialogComponent.vue'));
+Vue.component('weight-delete-dialog-component', require('./components/Weight/WeightDeleteDialogComponent.vue'));
+Vue.component('weight-list-component', require('./components/Weight/WeightListComponent.vue'));
+
+Vue.component('eating-dashboard-component', require('./components/Eating/EatingDashboardComponent.vue'));
+Vue.component('eating-list-component', require('./components/Eating/EatingListComponent.vue'));
+Vue.component('eating-detail-component', require('./components/Eating/EatingDetailComponent.vue'));
+Vue.component('eating-input-dialog-component', require('./components/Eating/EatingInputDialogComponent.vue'));
+Vue.component('eating-edit-dialog-component', require('./components/Eating/EatingEditDialogComponent.vue'));
+Vue.component('eating-delete-dialog-component', require('./components/Eating/EatingDeleteDialogComponent.vue'));
+Vue.component('eating-calc-target-calorie-component', require('./components/Eating/EatingCalcTargetCalorieComponent.vue'));
 
 const app = new Vue({
     el: '#app'
