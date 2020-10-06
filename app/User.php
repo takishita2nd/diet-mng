@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Model\EatingTarget');
     }
+
+    public function EatingHistoryItems()
+    {
+        return $this->belongsToMany('App\Model\EatingHistoryItem');
+    }
 }
