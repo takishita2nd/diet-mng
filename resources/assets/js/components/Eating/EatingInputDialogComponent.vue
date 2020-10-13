@@ -3,9 +3,9 @@
         <div id="overlay" v-show="show">
             <div id="content">
                 <p v-if="error_flg == true" class="error">
-                    <ui>
+                    <ul>
                         <li v-for="error in errors">{{ error }}</li>
-                    </ui>
+                    </ul>
                 </p>
                 <table class="edit">
                     <tbody>

@@ -15,6 +15,7 @@ class CreateEatingHistoryItem extends Migration
     {
         Schema::create('eating_history_items', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->text('item');
             $table->double('protein');
             $table->double('liqid');
             $table->double('carbo');
@@ -41,6 +42,7 @@ class CreateEatingHistoryItem extends Migration
 
         Schema::create('eating_template_items', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->text('item');
             $table->double('protein');
             $table->double('liqid');
             $table->double('carbo');

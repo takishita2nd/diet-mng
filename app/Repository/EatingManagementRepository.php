@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Model\EatingHistoryItem;
 use App\Model\EatingManagement;
 use App\Model\EatingTarget;
 use App\Model\Timezone;
@@ -13,6 +14,7 @@ class EatingManagementRepository
 {
     private $paramNames = ['date', 'item', 'protein', 'liqid', 'carbo', 'calorie'];
     private $targetParamNames = ['protein', 'liqid', 'carbo', 'calorie'];
+    private $templateParamNames = ['item', 'protein', 'liqid', 'carbo', 'calorie'];
 
     public function __construct()
     {
@@ -34,6 +36,21 @@ class EatingManagementRepository
 
         $this->attachToUser($model, $user);
         $this->attachToTimezone($model, $time);
+    }
+
+    /**
+     * ヒストリにデータを１件追加する
+     */
+    public function addHistory($param, $user)
+    {
+        $model = new EatingHistoryItem();
+        foreach($this->templateParamNames as $name)
+        {
+            $model->$name = $param[$name];
+        }
+        $model->save();
+
+        $this->attachToUser($model, $user);
     }
 
     /**

@@ -28,6 +28,7 @@ class ApiController extends Controller
         }
 
         $this->eatingManagement->add($param, Auth::user(), $request->contents['timezone']);
+        $this->eatingManagement->addHistory($param, Auth::user());
         
         return response()->json();
     }
