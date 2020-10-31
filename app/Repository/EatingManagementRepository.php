@@ -53,6 +53,11 @@ class EatingManagementRepository
         $this->attachToUser($model, $user);
     }
 
+    public function getHistory()
+    {
+        return EatingHistoryItem::all();
+    }
+
     /**
      * データを一件取得する
      */
@@ -95,8 +100,8 @@ class EatingManagementRepository
         }
 
         $eatings = $user->EatingManagements()
-             ->whereIn(DB::raw('date_format(date, "%Y-%m-%d")'), $dates)
-             ->get();
+            ->whereIn(DB::raw('date_format(date, "%Y-%m-%d")'), $dates)
+            ->get();
 
         // 日毎に集計
         $dailyDatas = [];

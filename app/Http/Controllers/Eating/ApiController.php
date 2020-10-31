@@ -100,4 +100,11 @@ class ApiController extends Controller
         $this->eatingManagement->setTarget($param, Auth::user());
         return response()->json();
     }
+
+    public function history(Request $request)
+    {
+        return response()->json([
+            'dataLists' => $this->eatingManagement->getHistory(), 
+            ]);
+    }
 }
