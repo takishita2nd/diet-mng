@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use App\Model\EatingHistoryItem;
 use App\Model\EatingManagement;
 use App\Model\EatingTarget;
+use App\Model\EatingTemplateItem;
 use App\Model\Timezone;
 use App\User;
 
@@ -56,6 +57,21 @@ class EatingManagementRepository
     public function getHistory()
     {
         return EatingHistoryItem::all();
+    }
+
+    public function registTemplate($ids)
+    {
+        $records =EatingHistoryItem::whereIn('id', $ids )->get();
+        foreach($records as $record)
+        {
+            $model = new EatingTemplateItem();
+            foreach($this->templateParamNames as $name)
+            {
+                $model->$name = $record[$name];
+            }
+            $model->save();
+            $record->delete();
+        }
     }
 
     /**

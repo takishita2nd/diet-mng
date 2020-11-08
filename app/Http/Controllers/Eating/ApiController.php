@@ -107,4 +107,10 @@ class ApiController extends Controller
             'dataLists' => $this->eatingManagement->getHistory(), 
             ]);
     }
+
+    public function regist(Request $request)
+    {
+        $this->eatingManagement->registTemplate($request->contents);
+        return response()->json();
+    }
 }

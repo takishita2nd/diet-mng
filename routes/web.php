@@ -40,3 +40,4 @@ Route::post('api/eating/settarget', 'Eating\ApiController@setTarget');
 
 Route::get('/eating/maintenance', 'Eating\MaintenanceController@index')->name('maintenance');
 Route::post('api/eating/history', 'Eating\ApiController@history');
+Route::post('api/eating/regist', 'Eating\ApiController@regist');

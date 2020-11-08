@@ -2,11 +2,14 @@
     <div>
         <div>
             <p id="navi"> <a href="/home">HOME</a></p>
+            <p id="inputbutton">
+                <button @click="onClickSubmit">選択したデータを登録</button>
+            </p>
             <table class="eatinghistory">
                 <tbody>
                     <tr>
                         <th class="check">
-                            <input type="checkbox" />
+                            <input type="checkbox" v-model="all" @click="onAllCheck" />
                         </th>
                         <th class="date">日時</th>
                         <th class="item">アイテム</th>
@@ -17,7 +20,7 @@
                     </tr>
                     <tr v-for="data in datalists">
                         <td class="check">
-                            <input type="checkbox" />
+                            <input type="checkbox" v-model="data.check" />
                         </td>
                         <td class="date">{{ data.date}}</td>
                         <td class="item">{{ data.item}}</td>
@@ -41,6 +44,8 @@ export default {
             contents: {
                 page: "",
             },
+            ids: [],
+            all: false,
         };
     },
     created: function() {
@@ -48,12 +53,14 @@ export default {
     },
     methods: {
         updateList: function() {
-            this.datalists = [];
-            this.param.contents = this.contents;
             var self = this;
-            axios.post('/api/eating/history', this.param).then(function(response){
+            self.datalists = [];
+            self.param.contents = self.contents;
+            axios.post('/api/eating/history', self.param).then(function(response){
                 response.data.dataLists.forEach(element => {
                     self.datalists.push({
+                        id: element.id,
+                        check: false,
                         date: element.created_at,
                         item: element.item,
                         protein: element.protein,
@@ -64,6 +71,30 @@ export default {
                 });
             }).catch(function(error){
             });
+        },
+        onClickSubmit: function() {
+            var self = this;
+            this.datalists.forEach(element => {
+                if(element.check == true){
+                    this.ids.push(element.id);
+                }
+            });
+            this.param.contents = this.ids;
+            axios.post('/api/eating/regist', this.param).then(function(response){
+                self.updateList();
+            }).catch(function(error){
+            });
+        },
+        onAllCheck: function() {
+            if(this.all == false) {
+                this.datalists.forEach(element => {
+                    element.check = true;
+                });
+            }else{
+                this.datalists.forEach(element => {
+                    element.check = false;
+                });
+            }
         }
     }
 }
