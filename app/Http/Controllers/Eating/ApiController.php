@@ -113,4 +113,11 @@ class ApiController extends Controller
         $this->eatingManagement->registTemplate($request->contents);
         return response()->json();
     }
+
+    public function search(Request $request)
+    {
+        return response()->json([
+            'keywords' => $this->eatingManagement->searchKeyword($request->contents['item'], Auth::user()), 
+            ]);
+    }
 }

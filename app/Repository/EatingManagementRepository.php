@@ -61,7 +61,7 @@ class EatingManagementRepository
 
     public function registTemplate($ids)
     {
-        $records =EatingHistoryItem::whereIn('id', $ids )->get();
+        $records = EatingHistoryItem::whereIn('id', $ids )->get();
         foreach($records as $record)
         {
             $model = new EatingTemplateItem();
@@ -72,6 +72,26 @@ class EatingManagementRepository
             $model->save();
             $record->delete();
         }
+    }
+
+    public function searchKeyword($keyword, $user)
+    {
+        $result = [];
+        $records1 = EatingTemplateItem::where('item', 'like', "%$keyword%")->get();
+        $records2 = $user->EatingHistoryItems()->where('item', 'like', "%$keyword%")->get();
+        if(count($records1) + count($records2) >= 10 )
+        {
+            return [];
+        }
+        foreach($records1 as $record)
+        {
+            $result[] = $record->item;
+        }
+        foreach($records2 as $record)
+        {
+            $result[] = $record->item;
+        }
+        return $result;
     }
 
     /**

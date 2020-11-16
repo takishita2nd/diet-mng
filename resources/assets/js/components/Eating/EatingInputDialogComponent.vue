@@ -18,7 +18,10 @@
                         </tr>
                         <tr>
                             <td>品名</td>
-                            <td><input type="text" v-model="contents.item" /></td>
+                            <td><input type="search" v-model="contents.item" autocomplete="on" list="keyword" v-on:keydown="onChangeItem"/></td>
+                            <datalist id="keyword">
+                                <option v-for="keyword in keywords" v-bind:value="keyword" />
+                            </datalist>
                         </tr>
                         <tr>
                             <td>時間帯</td>
@@ -74,6 +77,7 @@ export default {
                 carbo: "",
                 calorie: "",
             },
+            keywords: [            ],
         };
     },
     created: function() {
@@ -105,6 +109,21 @@ export default {
             this.contents.calorie = "";
             this.error_flg = false;
             this.errors = [];
+        },
+        onChangeItem: function() {
+            if(this.contents.item!=""){
+                var self = this;
+                this.param.contents = this.contents;
+                axios.post('/api/eating/search', this.param).then(function(response){
+                    self.keywords = [];
+                    response.data.keywords.forEach(keyword => {
+                        self.keywords.push(keyword);
+                    });
+                }).catch(function(error){
+                    self.error_flg = true;
+                    self.errors = error.response.data.errors;
+                });
+            }
         }
     }
 }
