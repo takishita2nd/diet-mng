@@ -44,6 +44,11 @@ class EatingManagementRepository
      */
     public function addHistory($param, $user)
     {
+        $record = $this->searchKeyword($param["item"], $user);
+        if(count($record) != 0)
+        {
+            return;
+        }
         $model = new EatingHistoryItem();
         foreach($this->templateParamNames as $name)
         {
@@ -85,11 +90,21 @@ class EatingManagementRepository
         }
         foreach($records1 as $record)
         {
-            $result[] = $record->item;
+            $obj = new \stdClass();
+            foreach($this->templateParamNames as $paramName)
+            {
+                $obj->$paramName = $record->$paramName;
+            }
+            $result[] = $obj;
         }
         foreach($records2 as $record)
         {
-            $result[] = $record->item;
+            $obj = new \stdClass();
+            foreach($this->templateParamNames as $paramName)
+            {
+                $obj->$paramName = $record->$paramName;
+            }
+            $result[] = $obj;
         }
         return $result;
     }
