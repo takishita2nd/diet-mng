@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Eating;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class MaintenanceController extends Controller
 {
@@ -20,6 +21,10 @@ class MaintenanceController extends Controller
 
     public function index()
     {
-        return view('maintenance');
+        if(Auth::user()->email == 'manage@gmail.com') {
+            return view('maintenance');
+        }else{
+            return redirect('/home');
+        }
     }
 }
