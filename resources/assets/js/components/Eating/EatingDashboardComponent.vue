@@ -6,6 +6,9 @@
             </div>
             <div class="command">
                 <ul>
+                    <li><a @click="onClickCalcCalorie">目標カロリー</a></li>
+                </ul>
+                <ul>
                     <li><a @click="onClickPrev">prev</a></li>
                     <li><a @click="onClickNext">next</a></li>
                 </ul>
@@ -16,6 +19,7 @@
             </div>
         </div>
         <eating-input-dialog-component :show="showInputDialogContent" :date="todayDate" :datehold=true @update="invokeUpdateList"></eating-input-dialog-component>
+        <eating-calc-target-calorie-component :show="showCalcCalorieContent" @update="invokeUpdateList"></eating-calc-target-calorie-component>
     </div>
 </template>
 
@@ -24,6 +28,7 @@ export default {
     data() {
         return {
             showInputDialogContent: false,
+            showCalcCalorieContent: false,
             todayDate: "",
             param: {},
             contents: {
@@ -31,12 +36,6 @@ export default {
             },
             label: ['タンパク質', '脂質', '炭水化物', 'カロリー'],
             datasets: [],
-            baseData: {
-                protein: 120.0,
-                liqid: 55.5,
-                carbo: 255.0,
-                calorie: 2000.0
-            },
             sub: 0,
         };
     },
@@ -64,6 +63,9 @@ export default {
         onClickInput: function() {
             this.showInputDialogContent = true;
         },
+        onClickCalcCalorie: function() {
+            this.showCalcCalorieContent = true;
+        },
         invokeUpdateList: function() {
             this.graphUpdate();
         },
@@ -75,10 +77,10 @@ export default {
             this.datasets = [];
             axios.post('api/eating/graph', this.param).then(function(response){
                 if(response.data.data != null) {
-                    self.datasets.push(response.data.data.protein / self.baseData.protein * 100);
-                    self.datasets.push(response.data.data.liqid / self.baseData.liqid * 100);
-                    self.datasets.push(response.data.data.carbo / self.baseData.carbo * 100);
-                    self.datasets.push(response.data.data.calorie / self.baseData.calorie * 100);
+                    self.datasets.push(Math.ceil(response.data.data.protein / response.data.target.protein * 100));
+                    self.datasets.push(Math.ceil(response.data.data.liqid / response.data.target.liqid * 100));
+                    self.datasets.push(Math.ceil(response.data.data.carbo / response.data.target.carbo * 100));
+                    self.datasets.push(Math.ceil(response.data.data.calorie / response.data.target.calorie * 100));
                     var myChart = new Chart(ctx, {
                         type: 'radar',
                         data: {

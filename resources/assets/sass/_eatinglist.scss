@@ -104,6 +104,64 @@ table.eatingdetail {
         }
     }
 }
+table.eatinghistory {
+    width: 100%;
+    tbody tr {
+        th {
+            border: solid;
+            border-width: thin;
+        }
+        .check {
+            text-align: center;
+            width: 5%;
+        }
+        .date {
+            width: 30;
+        }
+        .item {
+            width: 20%;
+        }
+        .protein {
+            width: 15%;
+        }
+        .liqid {
+            width: 10%;
+        }
+        .carbo {
+            width: 10%;
+        }
+        .calorie {
+            width: 10%;
+        }
+        td {
+            border: solid;
+            border-width: thin;
+            text-align: right;
+        }
+        .check {
+            text-align: center;
+            width: 5%;
+        }
+        .date {
+            width: 30;
+        }
+        .item {
+            width: 20%;
+        }
+        .protein {
+            width: 15%;
+        }
+        .liqid {
+            width: 10%;
+        }
+        .carbo {
+            width: 10%;
+        }
+        .calorie {
+            width: 10%;
+        }
+    }
+}
 table.edit {
     width: 100%;
     tbody tr {
