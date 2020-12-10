@@ -28,6 +28,7 @@ class ApiController extends Controller
         }
 
         $this->eatingManagement->add($param, Auth::user(), $request->contents['timezone']);
+        $this->eatingManagement->addHistory($param, Auth::user());
         
         return response()->json();
     }
@@ -98,5 +99,25 @@ class ApiController extends Controller
         }
         $this->eatingManagement->setTarget($param, Auth::user());
         return response()->json();
+    }
+
+    public function history(Request $request)
+    {
+        return response()->json([
+            'dataLists' => $this->eatingManagement->getHistory(), 
+            ]);
+    }
+
+    public function regist(Request $request)
+    {
+        $this->eatingManagement->registTemplate($request->contents);
+        return response()->json();
+    }
+
+    public function search(Request $request)
+    {
+        return response()->json([
+            'keywords' => $this->eatingManagement->searchKeyword($request->contents['item'], Auth::user()), 
+            ]);
     }
 }

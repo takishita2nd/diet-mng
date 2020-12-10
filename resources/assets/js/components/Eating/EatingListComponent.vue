@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <p id="navi">> <a href="/home">HOME</a></p>
+            <p id="navi"> <a href="/home">HOME</a></p>
             <table class="eatinglist">
                 <tbody>
                     <tr>

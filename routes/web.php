@@ -37,3 +37,8 @@ Route::post('api/eating/list', 'Eating\ApiController@list');
 Route::post('api/eating/detail', 'Eating\ApiController@detail');
 Route::post('api/eating/graph', 'Eating\ApiController@graph');
 Route::post('api/eating/settarget', 'Eating\ApiController@setTarget');
+
+Route::get('/eating/maintenance', 'Eating\MaintenanceController@index')->name('maintenance');
+Route::post('api/eating/history', 'Eating\ApiController@history');
+Route::post('api/eating/regist', 'Eating\ApiController@regist');
+Route::post('api/eating/search', 'Eating\ApiController@search');

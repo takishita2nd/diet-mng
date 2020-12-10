@@ -30,6 +30,8 @@ Vue.component('eating-edit-dialog-component', require('./components/Eating/Eatin
 Vue.component('eating-delete-dialog-component', require('./components/Eating/EatingDeleteDialogComponent.vue'));
 Vue.component('eating-calc-target-calorie-component', require('./components/Eating/EatingCalcTargetCalorieComponent.vue'));
 
+Vue.component('eating-history-component', require('./components/Eating/Maintenance/EatingHistoryComponent.vue'));
+
 const app = new Vue({
     el: '#app'
 });

@@ -4,8 +4,10 @@ namespace App\Repository;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Model\EatingHistoryItem;
 use App\Model\EatingManagement;
 use App\Model\EatingTarget;
+use App\Model\EatingTemplateItem;
 use App\Model\Timezone;
 use App\User;
 
@@ -13,6 +15,7 @@ class EatingManagementRepository
 {
     private $paramNames = ['date', 'item', 'protein', 'liqid', 'carbo', 'calorie'];
     private $targetParamNames = ['protein', 'liqid', 'carbo', 'calorie'];
+    private $templateParamNames = ['item', 'protein', 'liqid', 'carbo', 'calorie'];
 
     public function __construct()
     {
@@ -34,6 +37,76 @@ class EatingManagementRepository
 
         $this->attachToUser($model, $user);
         $this->attachToTimezone($model, $time);
+    }
+
+    /**
+     * ヒストリにデータを１件追加する
+     */
+    public function addHistory($param, $user)
+    {
+        $record = $this->searchKeyword($param["item"], $user);
+        if(count($record) != 0)
+        {
+            return;
+        }
+        $model = new EatingHistoryItem();
+        foreach($this->templateParamNames as $name)
+        {
+            $model->$name = $param[$name];
+        }
+        $model->save();
+
+        $this->attachToUser($model, $user);
+    }
+
+    public function getHistory()
+    {
+        return EatingHistoryItem::all();
+    }
+
+    public function registTemplate($ids)
+    {
+        $records = EatingHistoryItem::whereIn('id', $ids )->get();
+        foreach($records as $record)
+        {
+            $model = new EatingTemplateItem();
+            foreach($this->templateParamNames as $name)
+            {
+                $model->$name = $record[$name];
+            }
+            $model->save();
+            $record->delete();
+        }
+    }
+
+    public function searchKeyword($keyword, $user)
+    {
+        $result = [];
+        $records1 = EatingTemplateItem::where('item', 'like', "%$keyword%")->get();
+        $records2 = $user->EatingHistoryItems()->where('item', 'like', "%$keyword%")->get();
+        if(count($records1) + count($records2) >= 10 )
+        {
+            return [];
+        }
+        foreach($records1 as $record)
+        {
+            $obj = new \stdClass();
+            foreach($this->templateParamNames as $paramName)
+            {
+                $obj->$paramName = $record->$paramName;
+            }
+            $result[] = $obj;
+        }
+        foreach($records2 as $record)
+        {
+            $obj = new \stdClass();
+            foreach($this->templateParamNames as $paramName)
+            {
+                $obj->$paramName = $record->$paramName;
+            }
+            $result[] = $obj;
+        }
+        return $result;
     }
 
     /**
@@ -78,8 +151,8 @@ class EatingManagementRepository
         }
 
         $eatings = $user->EatingManagements()
-             ->whereIn(DB::raw('date_format(date, "%Y-%m-%d")'), $dates)
-             ->get();
+            ->whereIn(DB::raw('date_format(date, "%Y-%m-%d")'), $dates)
+            ->get();
 
         // 日毎に集計
         $dailyDatas = [];
