@@ -1,0 +1,87 @@
+html, body {
+    background-color: #fff;
+    color: #636b6f;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+    height: 100vh;
+    margin: 0;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.position-ref {
+    position: relative;
+}
+
+.top-right {
+    position: absolute;
+    right: 10px;
+    top: 18px;
+}
+
+.content {
+    text-align: center;
+    margin-top: 30%;
+}
+
+#whatsthis {
+    text-align: left;
+    margin-left: 20%;
+    width: 70%;
+}
+
+#graph {
+    width: 100%;
+}
+
+@media screen and (max-width:479px) {
+    .title {
+        font-size: 34px;
+    }
+    #whatsthis {
+        margin-left: 10%;
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width:480px) and (max-width:959px){
+    .title {
+        font-size: 44px;
+    }
+    #whatsthis {
+        font-size: 15px;
+    }
+}
+
+@media screen and (min-width:960px) {
+    .title {
+        font-size: 84px;
+    }
+    #whatsthis {
+        font-size: 20px;
+    }
+}
+
+.links > a {
+    color: #636b6f;
+    padding: 0 25px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.m-b-md {
+    margin-bottom: 30px;
+}
+
+
+h1 {
+    margin-top: 50%;
+}
