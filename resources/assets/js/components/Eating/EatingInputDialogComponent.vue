@@ -52,6 +52,14 @@
                         </tr>
                     </tbody>
                 </table>
+                <div id="mobile">
+                    <p>
+                        <input type="file" name="file" />
+                    </p>
+                    <p>
+                        <button>送信</button>
+                    </p>
+                </div>
                 <p id="command">
                     <button @click="clickAdd">入力</button>
                     <button @click="closeModal">閉じる</button>
