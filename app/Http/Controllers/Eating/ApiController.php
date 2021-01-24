@@ -120,4 +120,11 @@ class ApiController extends Controller
             'keywords' => $this->eatingManagement->searchKeyword($request->contents['item'], Auth::user()), 
             ]);
     }
+
+    public function upload(Request $request)
+    {
+        $file = $request->picture;
+        logger(dump($file->getClientOriginalName()));
+        return response()->json();
+    }
 }

@@ -42,3 +42,5 @@ Route::get('/eating/maintenance', 'Eating\MaintenanceController@index')->name('m
 Route::post('api/eating/history', 'Eating\ApiController@history');
 Route::post('api/eating/regist', 'Eating\ApiController@regist');
 Route::post('api/eating/search', 'Eating\ApiController@search');
+
+Route::post('api/eating/upload', 'Eating\ApiController@upload');

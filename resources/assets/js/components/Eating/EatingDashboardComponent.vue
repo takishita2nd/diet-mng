@@ -32,7 +32,7 @@ export default {
             todayDate: "",
             param: {},
             contents: {
-               date: "",
+                date: "",
             },
             label: ['タンパク質', '脂質', '炭水化物', 'カロリー'],
             datasets: [],

@@ -54,10 +54,10 @@
                 </table>
                 <div id="mobile">
                     <p>
-                        <input type="file" name="file" />
+                        <input @change="onSelectedFile" type="file" name="file" />
                     </p>
                     <p>
-                        <button>送信</button>
+                        <button @click="onUpload">送信</button>
                     </p>
                 </div>
                 <p id="command">
@@ -86,6 +86,7 @@ export default {
                 calorie: "",
             },
             keywords: [],
+            uploadFile: null
         };
     },
     created: function() {
@@ -118,6 +119,26 @@ export default {
             this.keywords = [];
             this.error_flg = false;
             this.errors = [];
+        },
+        onSelectedFile: function(e) {
+            e.preventDefault();
+            let files = e.target.files;
+            this.uploadFile = files[0];
+        },
+        onUpload: function() {
+            let formData = new FormData();
+            formData.append('picture', this.uploadFile);
+            let config = {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            };
+            axios
+                .post('/api/eating/upload', formData, config)
+                .then(function(response) {
+                })
+                .catch(function(error) {
+                })
         },
         onChangeItem: function() {
             if(this.contents.item!=""){
